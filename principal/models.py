@@ -12,13 +12,13 @@ class Usuarios(models.Model):
 
 class Escribano(Usuarios):
     idEscribano = models.AutoField(primary_key=True)
-    matricula = models.IntegerField(max_length=6)
+    matricula = models.IntegerField()
     provincia = models.CharField(max_length=50)
     ciudad = models.CharField(max_length=50)
     calle = models.CharField(max_length=100)
     altura = models.IntegerField()
-    piso = models.CharField(max_length=50, blank=True)
-    numeroPuerta = models.CharField(blank=True)
+    piso = models.IntegerField(blank=True)
+    numeroPuerta = models.CharField(max_length=5, blank=True)
 
 class Cliente(Usuarios):
     idCliente = models.AutoField(primary_key=True)
