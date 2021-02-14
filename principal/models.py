@@ -1,6 +1,5 @@
 from django.db import models
 
-# Create your models here.
 
 class Usuarios(models.Model):
     idUsuario = models.AutoField(primary_key=True)
@@ -9,6 +8,9 @@ class Usuarios(models.Model):
     dni = models.CharField(max_length=8)
     email = models.EmailField(max_length=100)
     contrasenia = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nombre + " " + self.apellido
 
 class Escribano(Usuarios):
     idEscribano = models.AutoField(primary_key=True)
