@@ -31,7 +31,7 @@ class Turno(models.Model):
     fecha = models.DateTimeField('%Y-%m-%d %H:%M')
     Escribano_idEscribano = models.ForeignKey(Escribano, on_delete=models.CASCADE)
     #Cliente_idCliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    Cliente_idCliente = models.OneToOneField(Cliente, on_delete=CASCADE)
+    Cliente_idCliente = models.OneToOneField(Cliente, on_delete=models.CASCADE)
 
 
 class Documento(models.Model):
@@ -40,4 +40,4 @@ class Documento(models.Model):
     tipo = models.CharField(max_length=100)
     imagen = models.ImageField(upload_to="documento")
     Cliente_idCliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    Escribano_idEscribano = models.ForeignKey(Escribano, on_delete=models.CASCADE)l
+    Escribano_idEscribano = models.ForeignKey(Escribano, on_delete=models.CASCADE)
