@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.deletion import CASCADE
 
 
 class Usuarios(models.Model):
@@ -29,7 +30,8 @@ class Turno(models.Model):
     idTurno = models.AutoField(primary_key=True)
     fecha = models.DateTimeField('%Y-%m-%d %H:%M')
     Escribano_idEscribano = models.ForeignKey(Escribano, on_delete=models.CASCADE)
-    Cliente_idCliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    #Cliente_idCliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    Cliente_idCliente = models.OneToOneField(Cliente, on_delete=models.CASCADE)
 
 
 class Documento(models.Model):
