@@ -23,8 +23,8 @@ def buscador_escribano(request):
 def perfil_cliente(request):
     return render(request, 'principal/perfil_cliente.html', context=None)
 
-def perfil_escribano_desde_cliente(request):
-    return render(request, 'principal/perfil_escribano_desde_cliente.html', context=None)
+def perfil_escribano_desde_usuario(request):
+    return render(request, 'principal/perfil_escribano_desde_usuario.html', context=None)
 
 def perfil_escribano(request):
     return render(request, 'principal/perfil_escribano.html', context=None)
