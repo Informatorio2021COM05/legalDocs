@@ -12,55 +12,9 @@
     </ul>
 
     <h1>Registro de usuario</h1>
-    <form>
+    <form method='POST' action=''>
         {% csrf_token %}
-        <!--Esta etiqueta protege al formulario (que usa el método POST) de falsificaciones
-        de solicitudes Cross Site-->
-
-        <label for="nombre">Nombre/s:</label><br>
-        <input type="text" id="nombre" name="nombre"><br>
-
-        <label for="apellido">Apellido/s:</label><br>
-        <input type="text" id="apellido" name="apellido"><br>
-
-        <label for="dni">D.N.I.:</label><br>
-        <input type="number" id="dni" name="dni"><br>
-
-        <label for="usuario">Usuario:</label><br>
-        <input type="text" id="usuario" name="usuario"><br>
-
-        <label for="email">Correo:</label><br>
-        <input type="email" id="email" name="email"><br>
-
-        <label for="contraseña">Contraseña:</label><br>
-        <input type="password" id="contraseña" name="contraseña"><br>
-
-        <label for="confirmcontraseña">Confirmar contraseña:</label><br>
-        <input type="password" id="confirmcontraseña" name="confirmcontraseña"><br>
-
-        <label for="matricula">Número de matrícula:</label><br>
-        <input type="number" id="matricula" name="matricula"><br>
-        <br>
-        <p>Información del local de atención al cliente</p>
-
-        <label for="provincia">Provincia:</label><br>
-        <input type="text" id="provincia" name="provincia"><br>
-
-        <label for="ciudad">Ciudad:</label><br>
-        <input type="text" id="ciudad" name="ciudad"><br>
-
-        <label for="calle">Calle:</label><br>
-        <input type="text" id="calle" name="calle"><br>
-
-        <label for="altura">Altura:</label><br>
-        <input type="number" id="altura" name="altura"><br>
-
-        <label for="piso">Piso:</label><br>
-        <input type="number" id="piso" name="piso"><br>
-
-        <label for="numeroPuerta">Número de puerta:</label><br>
-        <input type="text" id="numeroPuerta" name="numeroPuerta"><br>
-        <br>
+        {{form.as_p}}
         <input type="submit" value="Registrarme">
     </form>
 </body>
