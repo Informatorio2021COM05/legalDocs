@@ -1,18 +1,22 @@
-from django.http import HttpResponse
+from django.db import models
 from django.http.response import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.views.generic.base import View
-from principal.forms import BasicSignupForm, ExtendSignupForm, ClienteForm, EscribanoForm
-import html
-from principal.models import Usuario
+from .forms import BasicSignupForm, ExtendSignupForm, ClienteForm, EscribanoForm
+from .models import Escribano, Cliente
+from django.views.generic import TemplateView, ListView, DetailView
 
 
-def log_in(request):
-    #template = loader.get_template('principal/login.html')
-    return render(request, 'principal/login.html', context=None)
+class HomePageView(TemplateView):
+    template_name = 'principal/index.html'
 
-class UsuarioSignup:
+
+class LoginPageView(TemplateView):
+    template_name = 'registration/login.html'
+
+
+class ClienteSignup:
     def register(request):
         if request.method == 'POST':
             usuario = request.POST['usuario']
@@ -24,32 +28,62 @@ class UsuarioSignup:
             confirmar_contraseña = request.POST['confirmar_contraseña']
             
             if contraseña == confirmar_contraseña:
-                if Usuario.objects.filter(usuario = usuario).exists():
+                if Cliente.objects.filter(usuario = usuario).exists():
                     print('Usuario existente')
-                elif Usuario.objects.filter(email = email).exists():
+                elif Cliente.objects.filter(email = email).exists():
                     print('El email ya ha sido registrado')
-                elif Usuario.objects.filter(dni = dni).exists():
+                elif Cliente.objects.filter(dni = dni).exists():
                     print('El dni ya se encuentra registrado')
                 else:
-                    usuario = Usuario(usuario=usuario, nombre=nombre, apellido=apellido, dni=dni, email=email, contraseña = contraseña)
-                    usuario.save()
-                    return HttpResponseRedirect(reverse('index'))
+                    user = Cliente(
+                        usuario=usuario, nombre=nombre, apellido=apellido,
+                        dni=dni, email=email, contraseña = contraseña
+                    )
+                    user.save()
+                    return redirect('principal:index')
         form = BasicSignupForm()
         ctx = {'form': form}
         return render(request, 'principal/signup.html', ctx)
 
 
+class EscribanoSignup:
+    def register(request):
+        if request.method == 'POST':
+            usuario = request.POST['usuario']
+            nombre = request.POST['nombre']
+            apellido = request.POST['apellido']
+            dni = request.POST['dni']
+            email = request.POST['email']
+            contraseña = request.POST['contraseña']
+            confirmar_contraseña = request.POST['confirmar_contraseña']
+            matricula = request.POST['matrícula']
+            provincia = request.POST['provincia']
+            ciudad = request.POST['ciudad']
+            calle = request.POST['calle']
+            altura = request.POST['altura']
+            piso = request.POST['piso']
+            numeroPuerta = request.POST['número_de_puerta']
 
-#        form = BasicSignupForm()
-#        ctx = {'form': form}
-#        return render(request, 'principal/signup.html', ctx)
-
-class ClienteSignup(UsuarioSignup):
-    def get(self, request):
-        form = ClienteForm
-
-#    def sign_up(self, request):
-
+            if contraseña == confirmar_contraseña:
+                if Escribano.objects.filter(usuario = usuario).exists():
+                    print('Usuario existente')
+                elif Escribano.objects.filter(email = email).exists():
+                    print('El email ya ha sido registrado')
+                elif Escribano.objects.filter(dni = dni).exists():
+                    print('El dni ya se encuentra registrado')
+                else:
+                    user = Escribano(
+                        usuario=usuario, nombre=nombre, apellido=apellido,
+                        dni=dni, email=email, contraseña = contraseña,
+                        matricula=matricula, provincia=provincia,
+                        ciudad=ciudad, calle=calle, altura=altura,
+                        piso=piso, numeroPuerta=numeroPuerta
+                    )
+                    user.save()
+                    return redirect('principal:index')
+        form = ExtendSignupForm()
+        ctx = {'form': form}
+        return render(request, 'principal/signup_escribano.html', ctx)
 
 
 
@@ -62,10 +96,19 @@ def cargar_documento(request):
 def buscador_escribano(request):
     return render(request, 'principal/buscador_escribano.html', context=None)
 
+class BuscadorView(ListView):
+    model = Escribano
+    template_name = 'principal/buscador_escribano.html'
+    context_object_name = 'escribanos_list'
+
 def perfil_cliente(request):
     return render(request, 'principal/perfil_cliente.html', context=None)
 
-def perfil_escribano_desde_usuario(request):
+class DetalleEscribanoView(DetailView):
+    model = Escribano
+    template_name = 'principal/detalle_escribano.html'
+
+def perfil_escribano_publico(request):
     return render(request, 'principal/perfil_escribano_desde_usuario.html', context=None)
 
 def perfil_escribano(request):
