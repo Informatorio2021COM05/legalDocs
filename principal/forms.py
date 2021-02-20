@@ -4,20 +4,21 @@ from django.core import validators
 
 
 class BasicSignupForm(forms.Form):
-    usuario = forms.CharField(validators=[
+    usuario = forms.CharField(validators=[validators.MinLengthValidator(5),
         validators.MaxLengthValidator(30)])
     nombre = forms.CharField(validators=[
         validators.MaxLengthValidator(30)])
     apellido = forms.CharField(validators=[
         validators.MaxLengthValidator(30)])
-    dni = forms.IntegerField(validators=[validators.MinValueValidator(0), validators.MaxValueValidator(100000000)])
+    dni = forms.IntegerField(validators=[validators.MinValueValidator(1000000),
+        validators.MaxValueValidator(100000000)])
     email = forms.EmailField()
     contraseña = forms.CharField(max_length=30, widget=forms.PasswordInput)
     confirmar_contraseña = forms.CharField(max_length=30, widget=forms.PasswordInput)
 
 
 class ExtendSignupForm(BasicSignupForm):
-    matricula = forms.IntegerField()
+    matrícula = forms.IntegerField()
     provincia = forms.CharField(validators=[
         validators.MaxLengthValidator(50)])
     ciudad = forms.CharField(validators=[
@@ -27,7 +28,7 @@ class ExtendSignupForm(BasicSignupForm):
     altura = forms.IntegerField()
     piso = forms.IntegerField(validators=[
         validators.MinValueValidator(0)])
-    numeroPuerta = forms.CharField(validators=[
+    número_de_puerta = forms.CharField(validators=[
         validators.MaxLengthValidator(5)])
 
 
