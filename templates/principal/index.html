@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{%block titulo%}LegalDocs{%endblock titulo%}
+
+{% block content %}
+<body>
+    <h1>LegalDocs</h1>
+    <p>Descripción del sitio</p>
+    <ul>
+        <li><a href="{% url 'principal:signup' %}">Crear cuenta</a>
+        <li><a href="{% url 'principal:login' %}">Ingresar</a></ul>
+    </ul>
+</body>
+{% endblock content %}

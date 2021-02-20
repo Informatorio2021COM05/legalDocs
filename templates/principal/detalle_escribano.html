@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block titulo %}LegalDocs - {{escribano.apellido}}, {{escribano.nombre}}{% endblock titulo %}
+
+{% block content %}
+
+<h2>{{ escribano.apellido }}, {{ escribano.nombre }}</h2>
+<p> Matrícula profesional: {{ escribano.matricula }}</p>
+<p> Provincia: {{ escribano.provincia }}</p>
+<p> Ciudad: {{ escribano.ciudad }}</p>
+<p> Calle: {{ escribano.calle }}</p>
+<p> Altura: {{ escribano.altura }}</p>
+<p> Piso: {{ escribano.piso }}</p>
+<p> Puerta: {{ escribano.numeroPuerta }}</p>
+
+{% endblock content%}

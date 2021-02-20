@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block titulo %}LegalDocs - Buscar escribano{% endblock titulo %}
+
+{% block content %}
+    <h1>Buscar escribano</h1>
+    <ul>
+        {% for escribano in escribanos_list %}
+            <li> <a href="{% url 'principal:detalle_escribano' escribano.pk %}">{{ escribano.apellido }}, {{ escribano.nombre }}</a>
+            <br> Provincia: {{escribano.provincia}}
+            <br> Ciudad: {{escribano.ciudad}} </li>
+            <br>
+        {% endfor %}
+    </ul>
+{% endblock content %}
