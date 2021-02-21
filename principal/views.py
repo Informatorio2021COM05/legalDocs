@@ -1,11 +1,8 @@
-from django.db import models
-from django.http.response import HttpResponseRedirect
-from django.urls import reverse
 from django.shortcuts import render, redirect
-from django.views.generic.base import View
-from .forms import BasicSignupForm, ExtendSignupForm, ClienteForm, EscribanoForm
+from .forms import BasicSignupForm, ExtendSignupForm
 from .models import Escribano, Cliente
 from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic.edit import UpdateView
 
 
 class HomePageView(TemplateView):
@@ -103,6 +100,11 @@ class BuscadorView(ListView):
 
 def perfil_cliente(request):
     return render(request, 'principal/perfil_cliente.html', context=None)
+
+class EditarClienteView(UpdateView):
+    model = Cliente
+    template_name = 'principal/editar_cliente.html'
+    fields = '__all__'
 
 class DetalleEscribanoView(DetailView):
     model = Escribano

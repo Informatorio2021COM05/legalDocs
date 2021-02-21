@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block titulo %}LegalDocs - Perfil{% endblock titulo %}
+
+{% block content %}
+<a href="{% url 'principal:editar_cliente' cliente.pk %}">Editar perfil</a>
+{% endblock content %}
