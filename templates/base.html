@@ -8,8 +8,14 @@
 </head>
 <header>
     <a href="{% url 'principal:index' %}">Inicio</a> |
-    <a href="{% url 'principal:validar_documento'%}">Validar un documento</a> |
-    <a href="{% url 'principal:buscador_escribano'%}">Buscar escribano</a>
+    <a href="{% url 'principal:validar_documento' %}">Validar un documento</a> |
+    <a href="{% url 'principal:buscador_escribano' %}">Buscar escribano</a>|
+    {% if user.is_authenticated %}
+        <p>Hola {{ user.username }}!</p>
+        <a href="{% url 'logout' %}">Cerrar sesión</a>
+    {% else %}
+        <a href="{% url 'login' %}">Ingresar</a>
+    {% endif %}
 </header>
 
 <body>

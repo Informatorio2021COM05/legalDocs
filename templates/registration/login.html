@@ -6,7 +6,9 @@
 <h1>Ingresar</h1>
 <form method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
+    <table>
+    {{ form.as_table }}
+    </table>
     <button type="submit">Ingresar</button>
 </form>
 {% endblock content %}
