@@ -13,3 +13,23 @@
         {% endfor %}
     </ul>
 {% endblock content %}
+
+ {% block barra_busqueda %}
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 search">
+          <form method="GET">
+            <div id="custom-search-input">
+              <div class="input-group col-md-12">
+                <input type="text" class="form-control" placeholder="Buscar escribano" name="buscar" value="{{ request.GET.buscar }}">
+                <span class="input-group-list">
+                  <i class="icon icon-group-list"></i>
+                  <button type="submit" class="boton btn-success">Buscar</button>
+                </span>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  {% endblock barra_busqueda %}
