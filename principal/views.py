@@ -40,7 +40,7 @@ class ClienteSignup:
                     return redirect('principal:index')
         form = BasicSignupForm()
         ctx = {'form': form}
-        return render(request, 'principal/signup.html', ctx)
+        return render(request, 'registration/signup.html', ctx)
 
 
 class EscribanoSignup:
@@ -80,7 +80,7 @@ class EscribanoSignup:
                     return redirect('principal:index')
         form = ExtendSignupForm()
         ctx = {'form': form}
-        return render(request, 'principal/signup_escribano.html', ctx)
+        return render(request, 'registration/signup_escribano.html', ctx)
 
 
 
