@@ -2,6 +2,7 @@ from django.shortcuts import render
 from cuentas.models import CustomUser, Escribano
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import UpdateView
+from django.db.models import Q
 
 
 class HomePageView(TemplateView):
@@ -90,7 +91,14 @@ def cargar_documento(request):
     return render(request, 'principal/cargar_documento.html', context=None)
 
 def buscador_escribano(request):
-    return render(request, 'principal/buscador_escribano.html', context=None)
+    queryset = request.GET.get("buscar")
+    escribano = Escribano.objects.all()
+    if queryset:
+        escribano = Escribano.objects.filter(
+            Q(nombre__icontains = queryset) |
+            Q(apellido__icontains = queryset)
+        ).distinct()
+    return render(request, 'principal/buscador_escribano.html', {'escribano':escribano})
 
 class BuscadorView(ListView):
     model = Escribano
