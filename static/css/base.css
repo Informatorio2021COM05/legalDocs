@@ -1,10 +1,13 @@
+body {
+    margin: 0ex;
+}
+
 header {
     font-family: Calibri, 'Trebuchet MS', sans-serif;
     font-size: 3ex;
-    color: rgb(255, 255, 255);
-    background-color: rgb(6, 11, 65);
+    color: seashell;
+    background-color: rgb(0, 60, 80);
     padding: 3ex;
-    margin: 0ex;
 }
 
 header a {
