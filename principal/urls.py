@@ -10,6 +10,5 @@ urlpatterns = [
     path('detalle_perfil/', views.perfil_cliente, name='detalle_perfil'),
     path('editar_perfil/<int:pk>', views.EditarUsuarioView.as_view(), name = 'editar_perfil'),
     path('detalle_escribano/<int:pk>', views.DetalleEscribanoView.as_view(), name='detalle_escribano'),
-    #path('perfil_escribano/', views.perfil_escribano, name='perfil_escribano'),
     path('resultado_busqueda/', views.resultado_busqueda, name='resultado_busqueda'),
 ]
