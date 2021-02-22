@@ -4,6 +4,9 @@
 
 {% block content %}
     <h1>Registro de usuario</h1>
+
+    <a href=" {% url 'escribano_signup' %} ">Soy escribano</a>
+
     <form method='POST'>
         {% csrf_token %}
         <table>

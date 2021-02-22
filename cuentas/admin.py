@@ -1,20 +1,16 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import CustomUser
+from .models import CustomUser, Escribano
 
 
 class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = CustomUser
-    list_display = ['email', 'username', 'dni', 'is_staff', ]
-    fieldsets = UserAdmin.fieldsets + (
-        (None, {'fields': ('dni',)}),
-    )
-    add_fieldsets = UserAdmin.add_fieldsets + (
-        (None, {'fields': ('dni',)}),
-    )
+    list_display = ['email', 'username', 'is_staff', ]
+
 
 
 admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(Escribano)

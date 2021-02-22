@@ -34,12 +34,12 @@ class ExtendSignupForm(BasicSignupForm):
 
 
 from django.forms import ModelForm, fields
-from .models import Cliente, Escribano
+from cuentas.models import CustomUser, Escribano
 
 
 class ClienteForm(ModelForm):
     class Meta:
-        model = Cliente
+        model = CustomUser
         fields = '__all__'
 
 
