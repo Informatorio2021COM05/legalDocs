@@ -1,25 +1,30 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="es">
+
 <head>
     <meta charset="utf-8">
-    <title>{% block titulo%}{%endblock titulo%}</title>
+    <title>LegalDocs | {% block titulo%}{%endblock titulo%}</title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
 </head>
-<header>
-    <a href="{% url 'principal:index' %}">Inicio</a> |
-    <a href="{% url 'principal:validar_documento' %}">Validar un documento</a> |
-    <a href="{% url 'principal:buscador_escribano' %}">Buscar escribano</a>|
-    {% if user.is_authenticated %}
-        <p>Hola {{ user.username }}!</p>
-        <a href="{% url 'logout' %}">Cerrar sesión</a>
-    {% else %}
-        <a href="{% url 'login' %}">Ingresar</a>
-    {% endif %}
-</header>
 
 <body>
-{% block content %}
-{% endblock content %}
+    <header>
+        <a href="{% url 'principal:index' %}">Inicio</a> |
+        <a href="{% url 'principal:validar_documento' %}">Validar un documento</a> |
+        <a href="{% url 'principal:buscador_escribano' %}">Buscar escribano</a> |
+    
+        {% if user.is_authenticated %}
+            Hola {{ user.username }}!
+            <a href="{% url 'logout' %}">Cerrar sesión</a>
+        {% else %}
+            <a href="{% url 'login' %}">Ingresar</a> |
+            <a href="{% url 'signup' %}">Crear cuenta</a>
+        {% endif %}
+    </header>
+
+    {% block content %}
+    {% endblock content %}
 </body>
+
 </html>
