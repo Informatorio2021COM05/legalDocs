@@ -1,12 +1,9 @@
 {% extends 'base.html' %}
 
-{% block titulo %}LegalDocs - Registro de usuario{% endblock titulo %}
+{% block titulo %}Registro de escribano{% endblock titulo %}
 
 {% block content %}
-    <h1>Registro de usuario</h1>
-    <ul>
-        <li><a href="{% url 'principal:signup_escribano' %}">Soy escribano</a></li>
-    </ul>
+    <h1>Registro de usuario escribano</h1>
     <form method='POST' action=''>
         {% csrf_token %}
         <table>
