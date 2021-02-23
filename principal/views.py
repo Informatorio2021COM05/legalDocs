@@ -12,9 +12,6 @@ class HomePageView(TemplateView):
     template_name = 'principal/index.html'
 
 
-class LoginPageView(TemplateView):
-    template_name = 'registration/login.html'
-
 
 def validar_documento(request):
     return render(request, 'principal/validar_documento.html', context=None)

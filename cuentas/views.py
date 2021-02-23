@@ -1,4 +1,3 @@
-from django.contrib.auth import login
 from .forms import CustomUserCreationForm, EscribanoCreationForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, TemplateView
