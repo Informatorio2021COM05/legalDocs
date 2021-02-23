@@ -20,10 +20,10 @@ class Documento(models.Model):
     titulo = models.CharField(max_length=50)
     descripcion = models.CharField(max_length=300, default='', blank=True)
     paginas = models.PositiveIntegerField()
-    archivo = models.FileField(upload_to="documentos/", blank=True, null=True)
-    codigo = models.CharField(max_length=4, blank=True, editable=False, unique=True)
-    Cliente_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='+')
-    Escribano_id = models.ForeignKey(Escribano, on_delete=models.CASCADE)
+    archivo = models.FileField(upload_to="documentos/")
+    slug = models.CharField(max_length=4, blank=True, editable=False, unique=True)
+    cliente = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='+')
+    escribano = models.ForeignKey(Escribano, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.titulo
@@ -32,8 +32,8 @@ class Documento(models.Model):
         return reverse('detalle_documento', args=[str(self.id)])
     
     def save(self, *args, **kwargs):
-        if not self.codigo:
-            self.codigo = get_random_string(length=4)
+        if not self.slug:
+            self.slug = get_random_string(length=4)
         success = False
         failures = 0
         while not success:
@@ -44,6 +44,6 @@ class Documento(models.Model):
                 if failures > 5:
                     raise
                 else:
-                    self.codigo = get_random_string(length=4)
+                    self.slug = get_random_string(length=4)
             else:
                 success = True

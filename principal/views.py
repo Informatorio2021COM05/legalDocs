@@ -71,16 +71,17 @@ def resultado_busqueda(request):
     return render(request, 'principal/resultado_busqueda.html', context=None)
 
 
-class CrearDocumentoView(CreateView):
+class CargarDocumentoView(CreateView):
     model = Documento
-    success_url = reverse_lazy('creacion_doc_exitosa')
+    success_url = reverse_lazy('principal:carga_exitosa')
     template_name = 'principal/cargar_documento.html'
-    fields = ['titulo', 'descripcion', 'paginas', 'archivo']
+    fields = ['titulo', 'descripcion', 'paginas', 'archivo', 'cliente', 'escribano']
 
 
-class CreacionSuccessfulView(TemplateView):
-    template_name = 'principal/crear_doc_exitoso.html'
+class CargaExitosaView(TemplateView):
+    template_name = 'principal/carga_exitosa.html'
 
 class DetalleDocumentoView(DetailView):
     model = Documento
-    template_name = 'detalle_documento.html'
+    template_name = 'principal/detalle_documento.html'
+    slug_field = 'slug'

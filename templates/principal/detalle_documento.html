@@ -3,4 +3,10 @@
 {% block titulo %}Detalles del documento{% endblock titulo %}
 
 {% block content %}
+    <p> Propietario del documento: {{ documento.cliente }}</p>
+    <p> Título: {{ documento.titulo }}</p>
+    <p> Descripción: {{ documento.descripcion }}</p>
+    <p> Cantidad de páginas: {{ documento.paginas }}</p>
+    <p> Escribano: {{ documento.escribano }}</p>
+    <a href= "{{ documento.archivo.url }}">Ver archivo (pdf)</a>
 {% endblock content %}
