@@ -1,11 +1,11 @@
-from django.http.response import HttpResponse, HttpResponseBase
 from django.shortcuts import render
 from cuentas.models import CustomUser, Escribano
+from .models import Documento
 from django.views.generic import TemplateView, ListView, DetailView
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.db.models import Q
-from django.forms.models import model_to_dict
-from django.db.models import Model
+from .forms import DocumentoForm
+from django.urls import reverse_lazy
 
 
 class HomePageView(TemplateView):
@@ -60,15 +60,6 @@ class DetalleEscribanoView(DetailView):
     model = Escribano
     template_name = 'principal/detalle_escribano.html'
 
-#    def get_context_data(self, **kwargs):
-#        context = super(BuscadorView, self).get_context_data(**kwargs)
-#        context.update({
-#            'usuarios_list': CustomUser.objects.all
-#            })
-#        return context
-#
-#    def get_queryset(self):
-#        return Escribano.objects.all
 
 def perfil_escribano_publico(request):
     return render(request, 'principal/perfil_escribano_desde_usuario.html', context=None)
@@ -78,3 +69,18 @@ def perfil_escribano(request):
 
 def resultado_busqueda(request):
     return render(request, 'principal/resultado_busqueda.html', context=None)
+
+
+class CrearDocumentoView(CreateView):
+    model = Documento
+    success_url = reverse_lazy('creacion_doc_exitosa')
+    template_name = 'principal/cargar_documento.html'
+    fields = ['titulo', 'descripcion', 'paginas', 'archivo']
+
+
+class CreacionSuccessfulView(TemplateView):
+    template_name = 'principal/crear_doc_exitoso.html'
+
+class DetalleDocumentoView(DetailView):
+    model = Documento
+    template_name = 'detalle_documento.html'

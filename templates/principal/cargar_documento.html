@@ -1,27 +1,19 @@
-<head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% block titulo%} Cargar documento {%endblock titulo%}
-    {% block extraccs%}
-    {% endblock extraccs%}
-</head>
-<body>
-    {% block body%}
-        <h1>Cargar documento</h1>
+{% extends 'base.html' %}
 
-        <form>
-            <label for="Nombre">Nombre del cliente:</label><br>
-            <input type="text" id="nombre" name="nombre"><br>
-            <label for="Apellido">Apellido del cliente:</label><br>
-            <input type="text" id="apellido" name="apellido"><br>
-            <label for="Fecha">Fecha:</label><br>
-            <input type="datetime-local">
-        </form>
+{% block titulo%}Cargar documento{%endblock titulo%}
 
-    {% endblock body%}
+{% block extraccs%}{% endblock extraccs%}
+
+{% block content%}
+    <h1>Cargar documento</h1>
+    <form method="POST">
+    {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <button type="submit">Cargar</button>
+    </form>
+{% endblock content%}
 
 
-    {% block extrajs%}
-    {% endblock extrajs%}
-</body>
-</html>
+{% block extrajs%}{% endblock extrajs%}

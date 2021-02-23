@@ -129,3 +129,6 @@ LOGIN_REDIRECT_URL = 'principal:index'
 LOGOUT_REDIRECT_URL = 'principal:index'
 
 AUTH_USER_MODEL = 'cuentas.CustomUser'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = str(BASE_DIR.joinpath('media'))

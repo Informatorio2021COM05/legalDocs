@@ -1,7 +1,8 @@
-from django.db import models
+from django.db import models, IntegrityError
 from django.db.models.deletion import CASCADE
-from django.urls import reverse
 from cuentas.models import CustomUser, Escribano
+from django.utils.crypto import get_random_string
+from django.urls import reverse
 
 
 class Turno(models.Model):
@@ -13,12 +14,36 @@ class Turno(models.Model):
     def __str__(self):
         return self.fecha
 
+
+
 class Documento(models.Model):
+    titulo = models.CharField(max_length=50)
+    descripcion = models.CharField(max_length=300, default='', blank=True)
     paginas = models.PositiveIntegerField()
-    descripcion = models.CharField(max_length=100)
-    archivo = models.FileField(upload_to="documentos", null=True)
+    archivo = models.FileField(upload_to="documentos/", blank=True, null=True)
+    codigo = models.CharField(max_length=4, blank=True, editable=False, unique=True)
     Cliente_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='+')
-    Escribano_id = models.ForeignKey(Escribano, on_delete=models.CASCADE, )
+    Escribano_id = models.ForeignKey(Escribano, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.descripcion
+        return self.titulo
+
+    def get_absolute_url(self):
+        return reverse('detalle_documento', args=[str(self.id)])
+    
+    def save(self, *args, **kwargs):
+        if not self.codigo:
+            self.codigo = get_random_string(length=4)
+        success = False
+        failures = 0
+        while not success:
+            try:
+                super(Documento, self).save(*args, **kwargs)
+            except IntegrityError:
+                failures += 1
+                if failures > 5:
+                    raise
+                else:
+                    self.codigo = get_random_string(length=4)
+            else:
+                success = True
