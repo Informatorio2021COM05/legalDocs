@@ -4,9 +4,9 @@ from django.urls import reverse
 
 
 class CustomUser(AbstractUser):
-    nombre = models.CharField(max_length=50)
-    apellido = models.CharField(max_length=50)
-    dni = models.PositiveIntegerField()
+    nombre = models.CharField(max_length=50, default='')
+    apellido = models.CharField(max_length=50, default='')
+    dni = models.PositiveIntegerField(null=True)
     is_escribano = models.BooleanField(default=False)
     
     def __str__(self):
