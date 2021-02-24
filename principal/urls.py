@@ -12,5 +12,4 @@ urlpatterns = [
     path('cargar_documento/', views.CargarDocumentoView.as_view(), name= 'cargar_documento'),
     path('<slug:slug>/', views.DetalleDocumentoView.as_view(), name= 'detalle_documento'),
     path('<slug:slug>/editar_documento', views.EditarDocumentoView.as_view(), name= 'editar_documento'),
-    path('carga_exitosa/', views.CargaExitosaView.as_view(), name= 'carga_exitosa')
 ]
