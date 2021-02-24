@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 
-{% block titulo %}{{escribano.apellido}}, {{escribano.nombre}}{% endblock titulo %}
+{% block titulo %}
+    {% for usuario in usuarios_list%}
+        {% if usuario.id == escribano.pk %}
+            {{ usuario.apellido }}, {{ usuario.nombre }} 
+        {% endif %}
+    {% endfor %}
+{% endblock titulo %}
 
 {% block content %}
 
