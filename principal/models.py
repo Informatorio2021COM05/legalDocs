@@ -1,5 +1,6 @@
 from django.db import models, IntegrityError
 from django.db.models.deletion import CASCADE
+from django.db.models.fields import CharField
 from cuentas.models import CustomUser, Escribano
 from django.utils.crypto import get_random_string
 from django.urls import reverse
@@ -7,9 +8,9 @@ from django.urls import reverse
 
 class Turno(models.Model):
     fecha = models.DateTimeField('%Y-%m-%d %H:%M')
-    Escribano_id = models.ForeignKey(Escribano, on_delete=models.CASCADE, related_name='+')
+    escribano = models.ForeignKey(Escribano, on_delete=models.CASCADE, related_name='+')
     #Cliente_idCliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    Cliente_id = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    cliente = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     
     def __str__(self):
         return self.fecha
@@ -17,13 +18,13 @@ class Turno(models.Model):
 
 
 class Documento(models.Model):
-    titulo = models.CharField(max_length=50)
-    descripcion = models.CharField(max_length=300, default='', blank=True)
-    paginas = models.PositiveIntegerField()
-    archivo = models.FileField(upload_to="documentos/", blank=True, null=True)
-    slug = models.CharField(max_length=4, blank=True, editable=False, unique=True)
-    cliente = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='+')
-    escribano = models.ForeignKey(Escribano, on_delete=models.CASCADE)
+    titulo = models.CharField(max_length=50, verbose_name= 'Título')
+    descripcion = models.CharField(max_length=300, default='', blank=True, verbose_name= 'Descripción')
+    paginas = models.PositiveIntegerField(verbose_name= 'Cantidad de páginas')
+    archivo = models.FileField(upload_to="documentos/", blank=True, null=True, verbose_name= 'Archivo')
+    slug = models.CharField(max_length=4, blank=True, editable=False, unique=True, verbose_name= 'Código de identificación')
+    cliente = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='cliente', verbose_name= 'Cliente')
+    escribano = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.titulo
