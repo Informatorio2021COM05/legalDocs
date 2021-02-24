@@ -57,6 +57,13 @@ class DetalleEscribanoView(DetailView):
     model = Escribano
     template_name = 'principal/detalle_escribano.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(DetalleEscribanoView, self).get_context_data(**kwargs)
+        context.update({
+            'usuarios_list': CustomUser.objects.all
+            })
+        return context
+
 
 
 class CargarDocumentoView(LoginRequiredMixin, CreateView):

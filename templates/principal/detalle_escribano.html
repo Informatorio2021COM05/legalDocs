@@ -4,7 +4,13 @@
 
 {% block content %}
 
-<h2>{{ escribano.apellido }}, {{ escribano.nombre }}</h2>
+<h2>
+    {% for usuario in usuarios_list%}
+        {% if usuario.id == escribano.pk %}
+            {{ usuario.apellido }}, {{ usuario.nombre }} 
+        {% endif %}
+    {% endfor %}
+</h2>
 <p> Matrícula profesional: {{ escribano.matricula }}</p>
 <p> Provincia: {{ escribano.provincia }}</p>
 <p> Ciudad: {{ escribano.ciudad }}</p>
