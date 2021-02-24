@@ -10,7 +10,7 @@ class CustomUser(AbstractUser):
     is_escribano = models.BooleanField(default=False)
     
     def __str__(self):
-        return self.apellido + " " + self.nombre
+        return self.apellido + ", " + self.nombre
     
     def get_absolute_url(self):
         return reverse('principal:detalle_perfil', args=[str(self.id)])
