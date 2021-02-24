@@ -1,3 +1,4 @@
+from django.db.models.expressions import F
 from django.shortcuts import render, reverse
 from cuentas.models import CustomUser, Escribano
 from .models import Documento
@@ -5,7 +6,7 @@ from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.db.models import Q
 from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 
 class HomePageView(TemplateView):
@@ -42,8 +43,8 @@ class BuscadorView(ListView):
 
 
 
-def perfil_cliente(request):
-    return render(request, 'principal/perfil_cliente.html', context=None)
+def perfil_usuario(request):
+    return render(request, 'principal/perfil_usuario.html', context=None)
 
 
 class EditarUsuarioView(LoginRequiredMixin, UpdateView):
@@ -51,6 +52,7 @@ class EditarUsuarioView(LoginRequiredMixin, UpdateView):
     template_name = 'principal/editar_cliente.html'
     fields = '__all__'
     login_url = '/cuentas/login/'
+
 
 
 class DetalleEscribanoView(DetailView):
@@ -69,15 +71,13 @@ class DetalleEscribanoView(DetailView):
 class CargarDocumentoView(LoginRequiredMixin, CreateView):
     model = Documento
     template_name = 'principal/cargar_documento.html'
-    fields = ['titulo', 'descripcion', 'paginas', 'escribano']
+    fields = ['titulo', 'descripcion', 'paginas', 'cliente']
     login_url = '/cuentas/login/'
 
     def form_valid(self, form):
-        form.instance.cliente = self.request.user
+        form.instance.escribano = self.request.user
         return super().form_valid(form)
 
-class CargaExitosaView(TemplateView):
-    template_name = 'principal/carga_exitosa.html'
 
 
 
@@ -89,12 +89,16 @@ class DetalleDocumentoView(LoginRequiredMixin, DetailView):
 
 
 
-class EditarDocumentoView(LoginRequiredMixin, UpdateView):
+class EditarDocumentoView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model= Documento
     fields= ('titulo', 'descripcion', 'paginas', 'archivo')
     template_name = 'principal/editar_documento.html'
     slug_field = 'slug'
     login_url = '/cuentas/login/'
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.escribano == self.request.user or obj.cliente == self.request.user
 
 
 
