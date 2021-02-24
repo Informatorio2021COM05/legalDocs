@@ -6,7 +6,7 @@ from django.urls import reverse
 class CustomUser(AbstractUser):
     nombre = models.CharField(max_length=50, default='')
     apellido = models.CharField(max_length=50, default='')
-    dni = models.PositiveIntegerField(null=True)
+    dni = models.PositiveIntegerField(null=True, verbose_name= 'D.N.I.')
     is_escribano = models.BooleanField(default=False)
     
     def __str__(self):
@@ -18,7 +18,7 @@ class CustomUser(AbstractUser):
 
 class Escribano(models.Model):
     customuser_ptr = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
-    matricula = models.IntegerField(null=True, blank=True)
+    matricula = models.IntegerField()
     provincia = models.CharField(max_length=19)
     ciudad = models.CharField(max_length=50)
     calle = models.CharField(max_length=50)
