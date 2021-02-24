@@ -62,7 +62,7 @@ class EscribanoCreationForm(UserCreationForm):
         calle = self.cleaned_data['calle']
         altura = self.cleaned_data['altura']
         piso = self.cleaned_data['piso']
-        numeroPuerta = self.cleaned_data['numeroPuerta']
+        numeroPuerta = self.cleaned_data['número_de_puerta']
 
         user = Escribano.objects.create(
             customuser_ptr=user, matricula = matricula, provincia = provincia,
