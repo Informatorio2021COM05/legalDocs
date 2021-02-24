@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Editar documento{% endblock titulo %}
+
+{% block content %}
+    <h1>Editar documento</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <button type="submit">Actualizar datos</button>
+    </form>
+{% endblock content %}

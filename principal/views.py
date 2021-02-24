@@ -1,23 +1,17 @@
-from django.shortcuts import render
+from django.shortcuts import render, reverse
 from cuentas.models import CustomUser, Escribano
 from .models import Documento
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.db.models import Q
-from .forms import DocumentoForm
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class HomePageView(TemplateView):
     template_name = 'principal/index.html'
 
 
-
-def validar_documento(request):
-    return render(request, 'principal/validar_documento.html', context=None)
-
-def cargar_documento(request):
-    return render(request, 'principal/cargar_documento.html', context=None)
 
 def buscador_escribano(request):
     queryset = request.GET.get("buscar")
@@ -51,37 +45,51 @@ class BuscadorView(ListView):
 def perfil_cliente(request):
     return render(request, 'principal/perfil_cliente.html', context=None)
 
-class EditarUsuarioView(UpdateView):
+
+class EditarUsuarioView(LoginRequiredMixin, UpdateView):
     model = CustomUser
     template_name = 'principal/editar_cliente.html'
     fields = '__all__'
+    login_url = '/cuentas/login/'
+
 
 class DetalleEscribanoView(DetailView):
     model = Escribano
     template_name = 'principal/detalle_escribano.html'
 
 
-def perfil_escribano_publico(request):
-    return render(request, 'principal/perfil_escribano_desde_usuario.html', context=None)
 
-def perfil_escribano(request):
-    return render(request, 'principal/perfil_escribano.html', context=None)
-
-def resultado_busqueda(request):
-    return render(request, 'principal/resultado_busqueda.html', context=None)
-
-
-class CargarDocumentoView(CreateView):
+class CargarDocumentoView(LoginRequiredMixin, CreateView):
     model = Documento
-    success_url = reverse_lazy('principal:carga_exitosa')
     template_name = 'principal/cargar_documento.html'
-    fields = ['titulo', 'descripcion', 'paginas', 'archivo', 'cliente', 'escribano']
+    fields = ['titulo', 'descripcion', 'paginas', 'escribano']
+    login_url = '/cuentas/login/'
 
+    def form_valid(self, form):
+        form.instance.cliente = self.request.user
+        return super().form_valid(form)
 
 class CargaExitosaView(TemplateView):
     template_name = 'principal/carga_exitosa.html'
 
-class DetalleDocumentoView(DetailView):
+
+
+class DetalleDocumentoView(LoginRequiredMixin, DetailView):
     model = Documento
     template_name = 'principal/detalle_documento.html'
     slug_field = 'slug'
+    login_url = '/cuentas/login/'
+
+
+
+class EditarDocumentoView(LoginRequiredMixin, UpdateView):
+    model= Documento
+    fields= ('titulo', 'descripcion', 'paginas', 'archivo')
+    template_name = 'principal/editar_documento.html'
+    slug_field = 'slug'
+    login_url = '/cuentas/login/'
+
+
+
+def validar(request):
+    return render(request, 'principal/validar.html',)

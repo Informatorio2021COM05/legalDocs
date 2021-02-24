@@ -6,7 +6,15 @@
     <p> Propietario del documento: {{ documento.cliente }}</p>
     <p> Título: {{ documento.titulo }}</p>
     <p> Descripción: {{ documento.descripcion }}</p>
+    <p> Código de identificación: {{ documento.slug }}</p>
     <p> Cantidad de páginas: {{ documento.paginas }}</p>
     <p> Escribano: {{ documento.escribano }}</p>
-    <a href= "{{ documento.archivo.url }}">Ver archivo (pdf)</a>
+    {% if documento.archivo %}
+        <a href= "{{ documento.archivo.url }}">Ver archivo (pdf)</a>
+    {% else %}
+        <p>No se ha encontrado ningún documento.</p>
+
+    {% endif %}
+
+    <a href="{% url 'principal:editar_documento' documento.slug %}">Añadir archivo y editar documento</a>
 {% endblock content %}
