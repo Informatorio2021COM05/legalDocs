@@ -101,7 +101,7 @@ class MensajeConfirmacionView(TemplateView):
 
 
 
-class CargarDocumentoView(LoginRequiredMixin, CreateView):
+class CargarDocumentoView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     form_class = DocumentoForm
     template_name = 'principal/cargar_documento.html'
     login_url = '/cuentas/login/'
@@ -109,6 +109,9 @@ class CargarDocumentoView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.escribano = self.request.user
         return super().form_valid(form)
+    
+    def test_func(self):
+        return self.request.user.is_escribano
 
 
 
