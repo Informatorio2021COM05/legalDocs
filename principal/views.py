@@ -1,11 +1,10 @@
 from django.db.models.expressions import F
-from django.shortcuts import render, reverse
+from django.shortcuts import redirect, render
 from cuentas.models import CustomUser, Escribano
 from .models import Documento
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.db.models import Q
-from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 
@@ -101,6 +100,8 @@ class EditarDocumentoView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return obj.escribano == self.request.user or obj.cliente == self.request.user
 
 
-
 def validar(request):
-    return render(request, 'principal/validar.html',)
+    if request.method == 'POST':
+        codigo = request.POST['validar']
+        return redirect('principal:detalle_documento', slug= codigo)
+    return render(request, 'principal/validar.html')

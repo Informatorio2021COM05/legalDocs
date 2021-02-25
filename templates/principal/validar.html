@@ -10,14 +10,14 @@
 </head>
 
 {% block content %}
-        <h1>Validar un documento</h1>
-        <form method='get'>
-            <label for="usuario">Ingrese el código del documento que desea validar:</label><br>
-                <input type="text" id="validar" name="validar"><br>
-            <input type="submit" value="Validar">
-        </form>
+    <h1>Validar un documento</h1>
+    <form method='POST'>
+        {% csrf_token %}
+        <label for="usuario">Ingrese el código del documento que desea validar:</label><br>
+            <input type="text" id="validar" name="validar"><br>
+        <input type="submit" value="validar">
+    </form>
 
-
-    {% block extrajs%}
-    {% endblock extrajs%}
+    {% block extrajs%}{% endblock extrajs%}
+    
 {% endblock content %}
