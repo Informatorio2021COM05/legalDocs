@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from cuentas.models import CustomUser, Escribano
 from .models import Documento
-from .forms import TurnoForm
+from .forms import DocumentoForm, TurnoForm
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.db.models import Q
@@ -102,9 +102,8 @@ class MensajeConfirmacionView(TemplateView):
 
 
 class CargarDocumentoView(LoginRequiredMixin, CreateView):
-    model = Documento
+    form_class = DocumentoForm
     template_name = 'principal/cargar_documento.html'
-    fields = ['titulo', 'descripcion', 'paginas', 'cliente']
     login_url = '/cuentas/login/'
 
     def form_valid(self, form):
