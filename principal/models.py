@@ -1,16 +1,15 @@
 from django.db import models, IntegrityError
 from django.db.models.deletion import CASCADE
-from django.db.models.fields import CharField
-from cuentas.models import CustomUser, Escribano
+from cuentas.models import CustomUser
 from django.utils.crypto import get_random_string
 from django.urls import reverse
 
 
 class Turno(models.Model):
-    fecha = models.DateTimeField('%Y-%m-%d %H:%M')
-    escribano = models.ForeignKey(Escribano, on_delete=models.CASCADE, related_name='+')
-    #Cliente_idCliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    cliente = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    fecha = models.DateField('fecha', null=True, blank=True)
+    hora = models.TimeField('hora', null=True, blank=True)
+    escribano = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='+')
+    cliente = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     
     def __str__(self):
         return self.fecha

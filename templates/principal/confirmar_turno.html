@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Confirmar turno{% endblock titulo %}
+
+{% block content %}
+    <p>¿Desea confirmar un turno con
+        {% for usuario in usuarios_list %}
+            {% if usuario.id == escribano.pk %}
+                {{ usuario.apellido }}, {{ usuario.nombre }} 
+            {% endif %}
+        {% endfor %}
+        ?
+    <form method="POST">
+    {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <button type="submit">Confirmar turno</button>
+    </form>
+{% endblock content %}

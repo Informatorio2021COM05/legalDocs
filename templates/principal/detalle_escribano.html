@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block titulo %}
-    {% for usuario in usuarios_list%}
+    {% for usuario in usuarios_list %}
         {% if usuario.id == escribano.pk %}
             {{ usuario.apellido }}, {{ usuario.nombre }} 
         {% endif %}
@@ -24,5 +24,9 @@
 <p> Altura: {{ escribano.altura }}</p>
 <p> Piso: {{ escribano.piso }}</p>
 <p> Puerta: {{ escribano.numeroPuerta }}</p>
+<br>
+{% if usuario_logueado.is_escribano != True %}
+    <a href="{% url 'principal:confirmar_turno' escribano.pk %}">Solicitar un turno</a>
+{% endif %}
 
 {% endblock content%}

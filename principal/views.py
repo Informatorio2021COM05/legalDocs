@@ -1,7 +1,9 @@
 from django.db.models.expressions import F
 from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
 from cuentas.models import CustomUser, Escribano
 from .models import Documento
+from .forms import TurnoForm
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.db.models import Q
@@ -45,6 +47,10 @@ class BuscadorView(ListView):
 def perfil_usuario(request):
     return render(request, 'principal/perfil_usuario.html', context=None)
 
+class PerfilUsuario(TemplateView):
+    template_name = 'principal/perfil_usuario.html'
+
+
 
 class EditarUsuarioView(LoginRequiredMixin, UpdateView):
     model = CustomUser
@@ -61,9 +67,36 @@ class DetalleEscribanoView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(DetalleEscribanoView, self).get_context_data(**kwargs)
         context.update({
-            'usuarios_list': CustomUser.objects.all
+            'usuarios_list': CustomUser.objects.all,
+            'usuario_logueado': self.request.user,
             })
         return context
+
+
+
+class ConfirmarTurnoView(LoginRequiredMixin, CreateView):
+    form_class = TurnoForm
+    success_url = reverse_lazy('principal:mensaje_confirmacion')
+    template_name = 'principal/confirmar_turno.html'
+    login_url = '/cuentas/login/'
+
+    def get_context_data(self, **kwargs):
+        context = super(ConfirmarTurnoView, self).get_context_data(**kwargs)
+        context.update({
+            'usuarios_list': CustomUser.objects.all,
+            })
+        return context
+
+    def form_valid(self, form):
+        form.instance.cliente = self.request.user
+        pk = self.kwargs['pk']
+        form.instance.escribano = CustomUser.objects.get(id = pk)
+        return super().form_valid(form)
+
+
+
+class MensajeConfirmacionView(TemplateView):
+    template_name = 'principal/mensaje_confirmacion.html'
 
 
 
@@ -76,7 +109,6 @@ class CargarDocumentoView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.escribano = self.request.user
         return super().form_valid(form)
-
 
 
 
@@ -98,6 +130,7 @@ class EditarDocumentoView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def test_func(self):
         obj = self.get_object()
         return obj.escribano == self.request.user or obj.cliente == self.request.user
+
 
 
 def validar(request):
