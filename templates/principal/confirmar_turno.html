@@ -5,14 +5,14 @@
 {% block content %}
     <p>¿Desea confirmar un turno con
         {% for usuario in usuarios_list %}
-            {% if usuario.id == escribano.pk %}
+            {% if usuario.id ==  escribano_id %}
                 {{ usuario.apellido }}, {{ usuario.nombre }} 
             {% endif %}
         {% endfor %}
         ?
-    <form method="POST">
+    <form method="POST" >
     {% csrf_token %}
-        <table>
+        <table hidden>
             {{ form.as_table }}
         </table>
         <button type="submit">Confirmar turno</button>

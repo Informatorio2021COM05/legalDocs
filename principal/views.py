@@ -84,6 +84,7 @@ class ConfirmarTurnoView(LoginRequiredMixin, CreateView):
         context = super(ConfirmarTurnoView, self).get_context_data(**kwargs)
         context.update({
             'usuarios_list': CustomUser.objects.all,
+            'escribano_id': self.kwargs['pk']
             })
         return context
 
