@@ -13,8 +13,10 @@
         <a href= "{{ documento.archivo.url }}">Ver archivo (pdf)</a>
     {% else %}
         <p>No se ha encontrado ningún documento.</p>
-
     {% endif %}
 
-    <a href="{% url 'principal:editar_documento' documento.slug %}">Añadir archivo y editar documento</a>
+    {% if usuario_logueado.is_escribano %}
+        <a href="{% url 'principal:editar_documento' documento.slug %}">Añadir archivo y editar documento</a>
+    {% endif %}
+    
 {% endblock content %}

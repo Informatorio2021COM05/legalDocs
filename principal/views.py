@@ -109,7 +109,7 @@ class CargarDocumentoView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     def form_valid(self, form):
         form.instance.escribano = self.request.user
         return super().form_valid(form)
-    
+
     def test_func(self):
         return self.request.user.is_escribano
 
@@ -121,6 +121,12 @@ class DetalleDocumentoView(LoginRequiredMixin, DetailView):
     slug_field = 'slug'
     login_url = '/cuentas/login/'
 
+    def get_context_data(self, **kwargs):
+        context = super(DetalleDocumentoView, self).get_context_data(**kwargs)
+        context.update({
+            'usuario_logueado': self.request.user,
+            })
+        return context
 
 
 class EditarDocumentoView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
