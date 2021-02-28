@@ -22,11 +22,15 @@
 <p> Ciudad: {{ escribano.ciudad }}</p>
 <p> Calle: {{ escribano.calle }}</p>
 <p> Altura: {{ escribano.altura }}</p>
-<p> Piso: {{ escribano.piso }}</p>
-<p> Puerta: {{ escribano.numeroPuerta }}</p>
+{% if escribano.piso %}
+    <p> Piso: {{ escribano.piso }}</p>
+{% endif %}
+{% if escribano.numeroPuerta != '' %}
+    <p> Puerta: {{ escribano.numeroPuerta }}</p>
+{% endif %}
 <br>
 {% if usuario_logueado.is_escribano != True %}
-    <a href="{% url 'principal:confirmar_turno' escribano.pk %}">Solicitar un turno</a>
+    <a href="{% url 'principal:confirmar_turno' escribano.pk %}" class='boton'>Solicitar un turno</a>
 {% endif %}
 
 {% endblock content%}

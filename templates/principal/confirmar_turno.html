@@ -11,10 +11,10 @@
         {% endfor %}
         ?
     <form method="POST" >
-    {% csrf_token %}
-        <table hidden>
-            {{ form.as_table }}
-        </table>
+        {% csrf_token %}
+        <div hidden>
+            {{ form.as_p }}
+        </div>
         <button type="submit">Confirmar turno</button>
     </form>
 {% endblock content %}

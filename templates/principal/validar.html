@@ -12,9 +12,11 @@
     <h1>Validar un documento</h1>
     <form method='POST'>
         {% csrf_token %}
-        <label for="usuario">Ingrese el código del documento que desea validar:</label><br>
-            <input type="text" id="validar" name="validar"><br>
-        <input type="submit" value="validar">
+        <p>
+            <label for="usuario">Ingrese el código del documento que desea validar:</label>
+            <input type="text" id="validar" name="validar" placeholder="XXXX-XXXX">
+        </p>
+        <button type="submit">Validar</button>
     </form>
 
     {% block extrajs%}{% endblock extrajs%}

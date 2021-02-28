@@ -4,46 +4,30 @@
 
 {% block content %}
     <h1>Buscar escribano</h1>
-    <ul>
-        {% for escribano in escribanos_list %}
-            <li> <a href="{% url 'principal:detalle_escribano' escribano.pk %}">
-                {% for usuario in usuarios_list%}
-                    {% if usuario.id == escribano.pk %}
-                        {{ usuario.apellido }}, {{ usuario.nombre }} 
-                    {% endif %}
-                {% endfor %}</a>
-            <br> Provincia: {{escribano.provincia}}
-            <br> Ciudad: {{escribano.ciudad}} </li>
-            <br>
-        {% endfor %}
-    </ul>
+
+    <form method="GET">
+        <p>
+        <input type="text" class="form-control" placeholder="Buscar por provincia o ciudad" name="buscar" value="{{ request.GET.buscar }}">
+        </p>
+        <button type="submit">Buscar</button>
+    </form>
+    <br>
+
+    <h2>Lista de escribanos registrados</h2>
+    <div class="lista">
+        <ul>
+            {% for escribano in escribanos_list %}
+                <li> <a href="{% url 'principal:detalle_escribano' escribano.pk %}">
+                    {% for usuario in usuarios_list%}
+                        {% if usuario.id == escribano.pk %}
+                            {{ usuario.apellido }}, {{ usuario.nombre }} 
+                        {% endif %}
+                    {% endfor %}</a>
+                <br><br> <p><strong>Provincia:</strong> {{escribano.provincia}}
+                <br><strong>Ciudad:</strong> {{escribano.ciudad}} </li></p><br>
+            {% endfor %}
+        </ul>
+    </div>
+
 {% endblock content %}
 
-
-{% for usuario in usuarios_list%}
-    {% if usuario.id == escribano.pk %}
-        {{ usuario.apellido }}
-    {% endif %}
-{% endfor %}
-
-
-
-{% block barra_busqueda %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 search">
-                <form method="GET">
-                    <div id="custom-search-input">
-                        <div class="input-group col-md-12">
-                            <input type="text" class="form-control" placeholder="Buscar escribano" name="buscar" value="{{ request.GET.buscar }}">
-                            <span class="input-group-list">
-                                <i class="icon icon-group-list"></i>
-                                <button type="submit" class="boton btn-success">Buscar</button>
-                            </span>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-{% endblock barra_busqueda %}
