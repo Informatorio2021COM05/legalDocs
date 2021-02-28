@@ -1,19 +1,215 @@
 body {
-    margin: 0ex;
+    font-family: Calibri, Arial, Helvetica, sans-serif;
+    background-color: rgb(238, 255, 255);
+    margin: 0 auto;
+    width: 100%;
 }
 
-header {
-    font-family: Calibri, 'Trebuchet MS', sans-serif;
-    font-size: 3ex;
+nav {
+    display: block;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    font-size: 1.44em;
+    background-color: rgb(0, 70, 70);
+    height: 3.5em;
+    top: 0;
+}
+
+nav ul {
+    margin-top: 1.1em;
+}
+
+nav ul li {
+    list-style-type: none;
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul a {
     color: seashell;
-    background-color: rgb(0, 60, 80);
-    padding: 3ex;
+    text-decoration: none;
+    border-radius: 0.7em;
+    margin: 0;
+    text-align: center;
+    padding: 1.2em;
 }
 
-header a {
+nav ul a:hover,
+nav ul a:active {
+    background-color: rgba(255, 255, 255, 0.089);
+}
+
+nav .rightnav,
+nav .rightnavlog {
+    position: absolute;
+    left: 74%;
+}
+
+.icono {
+    margin-top: -0.2em;
+}
+
+.icono a {
+    padding-top: 1.9em;
+    padding-bottom: 0.38em;
+}
+
+.logo {
+    margin-top: -0.2em;
+}
+
+.logo a {
+    padding-top: 1.7em;
+    padding-bottom: 0.62em;
+}
+
+main {
+    position: relative;
+    margin: 0;
+    margin-top: 13em;
+    color: rgb(0, 50, 50);
+    font-family: 'Trebuchet MS', Calibri, Arial, sans-serif;
+    text-align: center;
+}
+
+main a:hover,
+main a:active {
+    border-radius: 1em;
+    text-decoration: none;
+}
+
+body main p {
+    font-size: 1.3em;
+}
+
+form ul {
+    text-align: left;
+    margin-left: 30%;
+    width: 40%;
+}
+
+form ul li {
+    padding: 0.3em;
+}
+
+li p {
+    margin-top: 0em;
+    margin-bottom: 0em,
+}
+
+form p {
+    padding: 0.5em;
+}
+
+form p input,
+#id_provincia {
+    display: block;
+    width: 40%;
+    border-radius: 0.4em;
+    background-color: rgba(210, 226, 210, 0);
+    border-color: rgb(97, 134, 134);
+    margin-left: 30%;
+    padding: 0.4em;
+    font-size: 0.9em;
+    color: rgb(1, 88, 88);
+    margin-top: 0.4em;
+    text-align: center;
+}
+
+.helptext {
+    display: block;
+    width: 35%;
+    margin: auto;
+    margin-top: 1em;
+    font-size: 0.78em;
+}
+
+#id_provincia {
+    width: 41.52%;
+}
+
+form p input:focus {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+form button,
+.boton {
+    background-color: rgba(0, 70, 70, 0.781);
+    border-radius: 1em;
+    font-family: 'Trebuchet MS', Calibri, Arial, sans-serif;
     color: seashell;
+    padding: 1em;
 }
 
-h1 {
-    font-family: Calibri, 'Trebuchet MS', sans-serif;
+form button {
+    margin: 1em;
+    width: 20em;
+    margin-bottom: 2em;
+    font-size: 1.3em;
+}
+
+.boton {
+    font-size: 1em;
+    border-width: 0.1em;
+    border-style: outset;
+    text-decoration: none;
+}
+
+form button:active,
+form button:hover,
+.boton:active,
+.boton:hover {
+    background-color: rgba(0, 70, 70, 0.712);
+    border-style: inset;
+}
+
+#soyescribano {
+    display: block;
+    position: relative;
+    left: 75%;
+    width: 8em;
+    top: -59.8em;
+    font-size: 1.4em;
+}
+
+.lista {
+    margin-left: 27.3%;
+    padding-left: 0;
+    margin-top: 3em;
+    text-align: left;
+    margin-right: 5%;
+}
+
+.lista ul {
+    list-style-type: none;
+}
+
+.lista ul li {
+    display: block;
+    width: 50%;
+    background-color: rgba(123, 160, 161, 0.295);
+    border-color: rgb(44, 90, 92);
+    padding: 2em;
+    padding-left: 5em;
+    margin-left: 0;
+    border-radius: 0.8em;
+    border: rgba(3, 109, 100, 0.397);
+    border-style: solid;
+    border-width: 0.01em;
+}
+
+.lista ul li a {
+    color: rgb(0, 80, 80);
+    font-size: 2em;
+    border-radius: 0.4em;
+    padding: 0.5em;
+    margin-left: -0.5em;
+    text-decoration: none;
+}
+
+.lista ul li a:active,
+.lista ul li a:hover {
+    background-color: rgba(0, 0, 0, 0.119);
 }
