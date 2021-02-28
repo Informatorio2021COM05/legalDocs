@@ -14,6 +14,9 @@ class DocumentoForm(ModelForm):
 class TurnoForm(ModelForm):
     fecha = forms.DateField(widget=DateInput(format='%Y-%m-%d', attrs={'type': 'date'}), required=False)
     hora = forms.TimeField(widget=TimeInput(format= '%H:%M', attrs={'type': 'time'}), required=False)
+    cliente = forms.IntegerField(required=False)
+    escribano = forms.IntegerField(required=False)
+
     class Meta:
         model = Turno
         fields = '__all__'
