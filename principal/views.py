@@ -47,18 +47,6 @@ class BuscadorView(ListView):
 def perfil_usuario(request):
     return render(request, 'principal/perfil_usuario.html', context=None)
 
-class PerfilUsuario(TemplateView):
-    template_name = 'principal/perfil_usuario.html'
-
-
-
-class EditarUsuarioView(LoginRequiredMixin, UpdateView):
-    model = CustomUser
-    template_name = 'principal/editar_cliente.html'
-    fields = '__all__'
-    login_url = '/cuentas/login/'
-
-
 
 class DetalleEscribanoView(DetailView):
     model = Escribano

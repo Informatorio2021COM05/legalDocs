@@ -2,6 +2,13 @@
 
 {% block titulo %}Editar perfil{% endblock titulo %}
 
+{% if usuario_logueado.is_escribano %}
+    <a href="{% url 'cuentas:editar_perfil' escribano.pk %}">Editar perfil</a>
+{% else %}
+    <a href="{% url 'principal:editar_cliente' usuario.pk %}">Editar perfil</a>
+{% endif %}
+
+
 {% block content %}
 <h1>Editar perfil</h1>
 <form action="" method="post">
