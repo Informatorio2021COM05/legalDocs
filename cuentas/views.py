@@ -15,10 +15,12 @@ class SignUpView(CreateView):
     template_name = 'registration/signup.html'
 
 
+
 class EscribanoSignUpView(CreateView):
     form_class = EscribanoCreationForm
     success_url = reverse_lazy('registro_exitoso')
     template_name = 'registration/signup_escribano.html'
+
 
 
 class SignUpSuccesfulView(TemplateView):
@@ -26,15 +28,27 @@ class SignUpSuccesfulView(TemplateView):
 
 
 
-class PerfilUsuario(TemplateView):
-    template_name = 'principal/perfil_usuario.html'
-
-class EditarUsuarioView(LoginRequiredMixin, UpdateView):
+class PerfilUsuario(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = CustomUser
-    template_name = 'principal/editar_perfil.html'
+    template_name = 'registration/perfil_usuario.html'
+    login_url = '/cuentas/login/'
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.id == self.request.user.id
+
+
+class EditarUsuarioView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = CustomUser
+    template_name = 'registration/editar_perfil.html'
     fields = '__all__'
     login_url = '/cuentas/login/'
     # success_url = reverse_lazy('/cuentas/login/')
+
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.id == self.request.user.id
 
     # No muestra el id
     # def get_object(self, queryset:None):

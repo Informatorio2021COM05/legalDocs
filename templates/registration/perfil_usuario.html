@@ -3,5 +3,5 @@
 {% block titulo %}Mi perfil{% endblock titulo %}
 
 {% block content %}
-<a href="{% url 'principal:editar_cliente' cliente.pk %}">Editar perfil</a>
+    <a href="{% url 'cuentas:editar_perfil' customuser.pk %}">Editar perfil</a>
 {% endblock content %}

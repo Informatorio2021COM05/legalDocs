@@ -10,6 +10,7 @@ class CustomUserCreationForm(UserCreationForm):
         fields = UserCreationForm.Meta.fields + ('nombre', 'apellido', 'dni', 'email',)
 
 
+
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
@@ -43,6 +44,7 @@ class EscribanoCreationForm(UserCreationForm):
     altura = forms.IntegerField()
     piso = forms.IntegerField(required=False)
     número_de_puerta = forms.CharField(max_length=4, required=False)
+
 
 
     class Meta(UserCreationForm.Meta):
