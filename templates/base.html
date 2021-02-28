@@ -5,29 +5,42 @@
 <head>
     <meta charset="UTF-8">
     <title>LegalDocs | {% block titulo%}{%endblock titulo%}</title>
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link href="{% static 'css/base.css' %}" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
 </head>
 
 <body>
-    <header>
-        <a href="{% url 'principal:index' %}">Inicio</a> |
-        <a href="{% url 'principal:validar' %}">Validar un documento</a> |
-        <a href="{% url 'principal:buscador_escribano' %}">Buscar escribano</a> |
+    <nav>
+        <ul>
+            <li class="logo"><a href="{% url 'principal:index' %}">
+                <img src="{% static 'logo.png' %}" alt="Logo del sitio" width="130" height="40">
+            </a></li>
+            <li><a href="{% url 'principal:validar' %}">Validar un documento</a></li>
+            <li><a href="{% url 'principal:buscador_escribano' %}">Buscar escribano</a></li>
+            {% if user.is_authenticated %}
+                <span class="rightnavlog">
+                    <li class="icono">
+                        <a href="{% url 'cuentas:perfil' user.pk %}">
+                            <img src="{% static 'usuario.png' %}" alt="Ícono de usuario" width="45" height="45"></img>
+                        </a>
+                    </li>
+                    <li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
+                </span>
+            {% else %}
+                <span class='rightnav'>
+                    <li><a href="{% url 'login' %}">Ingresar</a></li>
+                    <li><a href="{% url 'cuentas:signup' %}">Crear cuenta</a></li>
+                </span>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock content %}
+    </main>
     
-        {% if user.is_authenticated %}
-            Hola {{ user.username }}!
-            <a href="{% url 'logout' %}">Cerrar sesión</a>
-        {% else %}
-            <a href="{% url 'login' %}">Ingresar</a> |
-            <a href="{% url 'signup' %}">Crear cuenta</a>
-        {% endif %}
-    </header>
+    {% block barra_busqueda %}{% endblock barra_busqueda %}
 
-    {% block content %}
-    {% endblock content %}
-
-    {% block barra_busqueda %}
-    {% endblock barra_busqueda %}
 </body>
 
 </html>
