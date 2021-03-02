@@ -41,7 +41,7 @@ class PerfilUsuario(LoginRequiredMixin, UserPassesTestMixin, DetailView):
 class EditarUsuarioView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = CustomUser
     template_name = 'registration/editar_perfil.html'
-    fields = '__all__'
+    fields = ('username', 'nombre', 'apellido', 'dni')
     login_url = '/cuentas/login/'
     # success_url = reverse_lazy('/cuentas/login/')
 

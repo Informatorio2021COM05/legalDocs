@@ -45,8 +45,6 @@ class EscribanoCreationForm(UserCreationForm):
     piso = forms.IntegerField(required=False)
     número_de_puerta = forms.CharField(max_length=4, required=False)
 
-
-
     class Meta(UserCreationForm.Meta):
         model = CustomUser
         fields = UserCreationForm.Meta.fields + (
@@ -65,7 +63,6 @@ class EscribanoCreationForm(UserCreationForm):
         altura = self.cleaned_data['altura']
         piso = self.cleaned_data['piso']
         numeroPuerta = self.cleaned_data['número_de_puerta']
-
         user = Escribano.objects.create(
             customuser_ptr=user, matricula = matricula, provincia = provincia,
             ciudad = ciudad, calle = calle, altura = altura, piso= piso,

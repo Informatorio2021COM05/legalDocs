@@ -13,9 +13,7 @@
 <h1>Editar perfil</h1>
 <form action="" method="post">
     {% csrf_token %}
-    <table>
-    {{ form.as_table }}
-    </table>
-    <input type="submit" value="Actualizar">
+    {{ form.as_p }}
+    <button type="submit">Actualizar</button>
 </form>
 {% endblock content %}
