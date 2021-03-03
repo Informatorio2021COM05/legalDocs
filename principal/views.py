@@ -44,10 +44,6 @@ class BuscadorView(ListView):
 
 
 
-def perfil_usuario(request):
-    return render(request, 'principal/perfil_usuario.html', context=None)
-
-
 class DetalleEscribanoView(DetailView):
     model = Escribano
     template_name = 'principal/detalle_escribano.html'
@@ -117,6 +113,7 @@ class DetalleDocumentoView(LoginRequiredMixin, DetailView):
         return context
 
 
+
 class EditarDocumentoView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model= Documento
     fields= ('titulo', 'descripcion', 'paginas', 'archivo')
@@ -135,3 +132,10 @@ def validar(request):
         codigo = request.POST['validar']
         return redirect('principal:detalle_documento', slug= codigo)
     return render(request, 'principal/validar.html')
+
+
+class ListaDocumentos(LoginRequiredMixin, UserPassesTestMixin, ListView):
+    model = Documento
+    template_name = 'principal/listaDocumentos.html'
+    context_object_name = 'documentos_list'
+    login_url = '/cuentas/login/'
