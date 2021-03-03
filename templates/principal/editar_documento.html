@@ -6,9 +6,7 @@
     <h1>Editar documento</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <table>
-            {{ form.as_table }}
-        </table>
+            {{ form.as_p }}
         <button type="submit">Actualizar datos</button>
     </form>
 {% endblock content %}
