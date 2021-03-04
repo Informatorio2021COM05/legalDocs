@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from cuentas.models import CustomUser, Escribano
 from .models import Documento, Turno
-from .forms import DocumentoForm, TurnoForm
+from .forms import DocumentoForm, TurnoForm, EditarTurnoForm
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.db.models import Q
@@ -58,7 +58,7 @@ class DetalleEscribanoView(DetailView):
 
 
 
-class ConfirmarTurnoView(LoginRequiredMixin, CreateView):
+class ConfirmarTurnoView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     form_class = TurnoForm
     success_url = reverse_lazy('principal:mensaje_confirmacion')
     template_name = 'principal/confirmar_turno.html'
@@ -77,6 +77,10 @@ class ConfirmarTurnoView(LoginRequiredMixin, CreateView):
         pk = self.kwargs['pk']
         form.instance.escribano = CustomUser.objects.get(id = pk)
         return super().form_valid(form)
+    
+    def test_func(self):
+        if not self.request.user.is_escribano:
+            return self.request.user
 
 
 
@@ -95,7 +99,8 @@ class CargarDocumentoView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         return super().form_valid(form)
 
     def test_func(self):
-        return self.request.user.is_escribano
+        obj = self.get_object()
+        return obj.cliente == self.request.user
 
 
 
@@ -147,13 +152,15 @@ class ListaTurnos(LoginRequiredMixin, ListView):
     model = Turno
     template_name = 'principal/lista_turnos.html'
     context_object_name = 'turnos_list'
+    paginate_by = 10
     login_url = '/cuentas/login/'
+    ordering = ['fecha']
 
     def get_queryset(self):
         if self.request.user.is_escribano:
-            return super(ListaTurnos, self).get_queryset().filter(escribano=self.request.user)
+            return super(ListaTurnos, self).get_queryset().filter(escribano=self.request.user).order_by('-fecha', 'hora')
         else:
-            return super(ListaTurnos, self).get_queryset().filter(cliente=self.request.user)
+            return super(ListaTurnos, self).get_queryset().filter(cliente=self.request.user).order_by('-fecha', 'hora')
 
     def get_context_data(self, **kwargs):
         context = super(ListaTurnos, self).get_context_data(**kwargs)
@@ -166,6 +173,11 @@ class ListaTurnos(LoginRequiredMixin, ListView):
 
 class EditarTurno(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Turno
-    fields= ('fecha', 'hora',)
+    form_class = EditarTurnoForm
     template_name = 'principal/editar_turno.html'
+    success_url = '/turnos/'
     login_url = '/cuentas/login/'
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.escribano == self.request.user

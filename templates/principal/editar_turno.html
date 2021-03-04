@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Confirmar turno{% endblock titulo %}
+
+{% block content %}
+<h1>Confirmar turno</h1>
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Actualizar</button>
+</form>
+{% endblock content %}

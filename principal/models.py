@@ -22,7 +22,7 @@ class Documento(models.Model):
     paginas = models.PositiveIntegerField(verbose_name= 'Cantidad de páginas')
     archivo = models.FileField(upload_to="documentos/", blank=True, null=True, verbose_name= 'Archivo')
     slug = models.CharField(max_length=4, blank=True, editable=False, unique=True, verbose_name= 'Código de identificación')
-    cliente = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='cliente', verbose_name= 'Cliente')
+    cliente = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='+', verbose_name= 'Cliente')
     escribano = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
     def __str__(self):
