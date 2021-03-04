@@ -18,10 +18,10 @@ class CustomUser(AbstractUser):
 
 class Escribano(models.Model):
     customuser_ptr = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
-    matricula = models.IntegerField()
+    matricula = models.IntegerField(verbose_name= 'Matrícula')
     provincia = models.CharField(max_length=19)
     ciudad = models.CharField(max_length=50)
     calle = models.CharField(max_length=50)
     altura = models.IntegerField()
     piso = models.IntegerField(null=True, blank=True)
-    numeroPuerta = models.CharField(max_length=4, blank=True, default= '')
+    numeroPuerta = models.CharField(max_length=4, blank=True, default= '', verbose_name= 'Número de puerta')

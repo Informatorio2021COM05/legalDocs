@@ -5,15 +5,16 @@
 {% block content %}
     <h2>¡Hola {{ customuser.nombre }}!</h2><br>
 
+    <p><a href="{% url 'cuentas:editar_perfil' customuser.pk %}" class="boton">Editar perfil</a></p><br>
     {% if customuser.is_escribano %}
         <p><a href="{% url 'principal:cargar_documento' %}" class="boton">Cargar un documento</a></p><br>
         <p><a href="{% url 'principal:documentos' %}" class="boton">Ver documentos cargados</a></p><br>
+        <p><a href="{% url 'cuentas:editar_escribano' customuser.pk %}" class="boton">Editar datos del domicilio</a></p><br>
     {% else %}
         <p><a href="{% url 'principal:documentos' %}" class="boton">Ver mis documentos</a></p><br>
     {% endif %}
 
     <p><a href="{% url 'principal:lista_turnos' %}" class="boton">Ver mis turnos</a></p><br>
-    <p><a href="{% url 'cuentas:editar_perfil' customuser.pk %}" class="boton">Editar perfil</a></p>
     <br><br><br>
 
 {% endblock content %}

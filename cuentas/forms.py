@@ -1,5 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.db.models import fields
 from django.db.models.query_utils import Q
+from django.forms.models import ModelForm
 from .models import CustomUser, Escribano
 from django import forms
 
@@ -69,3 +71,24 @@ class EscribanoCreationForm(UserCreationForm):
             numeroPuerta = numeroPuerta
             )
         return user
+
+class EscribanoEditForm(ModelForm):
+    opciones = (('Buenos Aires', 'Buenos Aires'), ('Capital Federal', 'Capital Federal'),
+    ('Catamarca', 'Catamarca'), ('Chaco', 'Chaco'), ('Chubut', 'Chubut'),
+    ('Córdoba', 'Córdoba'), ('Corrientes', 'Corrientes'), ('Entre Ríos', 'Entre Ríos'),
+    ('Formosa', 'Formosa'), ('Jujuy', 'Jujuy'), ('La Pampa', 'La Pampa'),
+    ('La Rioja', 'La Rioja'), ('Mendoza', 'Mendoza'), ('Misiones', 'Misiones'),
+    ('Neuquén', 'Neuquén'), ('Río Negro', 'Río Negro'), ('Salta', 'Salta'),
+    ('San Juan', 'San Juan'), ('San Luis', 'San Luis'), ('Santa Cruz', 'Santa Cruz'),
+    ('Santa Fe', 'Santa Fe'), ('Santiago del Estero', 'Santiago del Estero'),
+    ('Tierra del Fuego', 'Tierra del Fuego'), ('Tucumán', 'Tucumán'),
+    )
+    
+    provincia = forms.ChoiceField(choices=opciones)
+    ciudad = forms.CharField(max_length=50)
+    calle = forms.CharField(max_length=50)
+    piso = forms.IntegerField(required=False)
+
+    class Meta:
+        model = Escribano
+        fields = ('provincia', 'ciudad', 'calle', 'altura', 'piso', 'numeroPuerta')
