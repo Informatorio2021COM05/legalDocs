@@ -9,10 +9,11 @@
         <p><a href="{% url 'principal:cargar_documento' %}" class="boton">Cargar un documento</a></p><br>
         <p><a href="{% url 'principal:documentos' %}" class="boton">Ver documentos cargados</a></p><br>
     {% else %}
-        <p><a href="{% url 'principal:documentos' %}" class="boton">Ver mis documentos</a></p>
+        <p><a href="{% url 'principal:documentos' %}" class="boton">Ver mis documentos</a></p><br>
     {% endif %}
 
     <p><a href="{% url 'principal:lista_turnos' %}" class="boton">Ver mis turnos</a></p><br>
-    <p><a href="{% url 'cuentas:editar_perfil' customuser.pk %}" class="boton">Editar perfil</a></p><br><br><br><br>
+    <p><a href="{% url 'cuentas:editar_perfil' customuser.pk %}" class="boton">Editar perfil</a></p>
+    <br><br><br>
 
 {% endblock content %}
