@@ -11,14 +11,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 class SignUpView(CreateView):
     form_class = CustomUserCreationForm
-    success_url = reverse_lazy('registro_exitoso')
+    success_url = reverse_lazy('cuentas:registro_exitoso')
     template_name = 'registration/signup.html'
 
 
 
 class EscribanoSignUpView(CreateView):
     form_class = EscribanoCreationForm
-    success_url = reverse_lazy('registro_exitoso')
+    success_url = reverse_lazy('cuentas:registro_exitoso')
     template_name = 'registration/signup_escribano.html'
 
 
