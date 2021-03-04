@@ -12,6 +12,9 @@
                     <a href=" {% url 'principal:detalle_documento' documento.slug %} " >{{ documento.titulo }}</a>
                     <br><br><br>
                     <p><strong>Cantidad de páginas:</strong> {{ documento.paginas }}</p>
+                    {% if not documento.archivo %}
+                        <p><strong>Archivo no cargado</strong></p>
+                    {% endif %}
                 </li>
                 <br><br>
             {% endfor %}
