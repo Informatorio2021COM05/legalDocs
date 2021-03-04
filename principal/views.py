@@ -2,7 +2,7 @@ from django.db.models.expressions import F
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from cuentas.models import CustomUser, Escribano
-from .models import Documento
+from .models import Documento, Turno
 from .forms import DocumentoForm, TurnoForm
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
@@ -68,7 +68,7 @@ class ConfirmarTurnoView(LoginRequiredMixin, CreateView):
         context = super(ConfirmarTurnoView, self).get_context_data(**kwargs)
         context.update({
             'usuarios_list': CustomUser.objects.all,
-            'escribano_id': self.kwargs['pk']
+            'escribano_id': self.kwargs['pk'],
             })
         return context
 
@@ -134,8 +134,38 @@ def validar(request):
     return render(request, 'principal/validar.html')
 
 
-class ListaDocumentos(LoginRequiredMixin, UserPassesTestMixin, ListView):
+
+class ListaDocumentos(LoginRequiredMixin, ListView):
     model = Documento
-    template_name = 'principal/listaDocumentos.html'
+    template_name = 'principal/lista_documentos.html'
     context_object_name = 'documentos_list'
+    login_url = '/cuentas/login/'
+
+
+
+class ListaTurnos(LoginRequiredMixin, ListView):
+    model = Turno
+    template_name = 'principal/lista_turnos.html'
+    context_object_name = 'turnos_list'
+    login_url = '/cuentas/login/'
+
+    def get_queryset(self):
+        if self.request.user.is_escribano:
+            return super(ListaTurnos, self).get_queryset().filter(escribano=self.request.user)
+        else:
+            return super(ListaTurnos, self).get_queryset().filter(cliente=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super(ListaTurnos, self).get_context_data(**kwargs)
+        context.update({
+            'usuario': self.request.user,
+            })
+        return context
+
+
+
+class EditarTurno(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Turno
+    fields= ('fecha', 'hora',)
+    template_name = 'principal/editar_turno.html'
     login_url = '/cuentas/login/'

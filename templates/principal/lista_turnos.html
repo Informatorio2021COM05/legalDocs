@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Mis turnos{% endblock titulo %}
+
+{% block content %}
+    <h1>Mis turnos</h1>
+    <div class="lista">
+        <ul>
+            {% for turno in turnos_list %}
+                <li>
+                {% if usuario.is_escribano %}
+                    <p>Nombre del cliente: {{ turno.cliente }}</p>
+                {% else %}
+                    <p>Nombre del escribano: </p>
+                    <a href=" {% url 'principal:detalle_escribano' turno.escribano_id %} " >{{ turno.escribano }}</a>
+                    <br><br><br>
+                {% endif %}
+                {% if turno.fecha != None or turno.hora != None %}
+                    <p>Fecha: {{ turno.fecha }}</p>
+                    <p>Hora: {{ turno.hora }}</p> </li>
+                {% else %}
+                    {% if usuario.is_escribano %}
+                        <a href="{% url 'principal:editar_turno' turno.pk %}" class="link">Añadir fecha y horario</a></li>
+                        <br><br>
+                    {% else %}
+                        <p>El escribano aún no ha confirmado el horario del turno</p></li>
+                        <br><br>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock content %}
