@@ -104,7 +104,9 @@ form p {
 }
 
 form p input,
-#id_provincia {
+#id_provincia,
+form p textarea,
+form p select {
     display: block;
     width: 40%;
     border-radius: 0.4em;
@@ -116,6 +118,13 @@ form p input,
     color: rgb(1, 88, 88);
     margin-top: 0.4em;
     text-align: center;
+}
+
+form p textarea {
+    height: 8em;
+    font-family: 'Trebuchet MS', Calibri, Arial, sans-serif;
+    font-size: 0.8em;
+    text-align: left;
 }
 
 .helptext {
@@ -224,4 +233,10 @@ form button:hover,
 .lista ul li .link {
     font-size: 1.1em;
     color: blue;
+}
+
+.descripcion {
+    display: block;
+    width: 50%;
+    margin: auto;
 }
