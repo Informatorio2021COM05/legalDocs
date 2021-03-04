@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Documentos{% endblock titulo %}
+
+{% block content %}
+    <h1>Documentos</h1>
+    <div class="lista">
+        <ul>
+            {% for documento in documentos_list %}
+                <li>
+                    <p><strong>Título:</strong></p>
+                    <a href=" {% url 'principal:detalle_documento' documento.slug %} " >{{ documento.titulo }}</a>
+                    <br><br><br>
+                    <p><strong>Cantidad de páginas:</strong> {{ documento.paginas }}</p>
+                </li>
+                <br><br>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock content %}

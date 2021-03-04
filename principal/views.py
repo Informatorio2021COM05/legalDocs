@@ -144,7 +144,20 @@ class ListaDocumentos(LoginRequiredMixin, ListView):
     template_name = 'principal/lista_documentos.html'
     context_object_name = 'documentos_list'
     login_url = '/cuentas/login/'
+    paginate_by = 10
 
+    def get_queryset(self):
+        if self.request.user.is_escribano:
+            return super(ListaDocumentos, self).get_queryset().filter(escribano=self.request.user)
+        else:
+            return super(ListaDocumentos, self).get_queryset().filter(cliente=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super(ListaDocumentos, self).get_context_data(**kwargs)
+        context.update({
+            'usuario': self.request.user,
+            })
+        return context
 
 
 class ListaTurnos(LoginRequiredMixin, ListView):
