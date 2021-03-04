@@ -35,12 +35,9 @@ class BuscadorView(ListView):
     def get_context_data(self, **kwargs):
         context = super(BuscadorView, self).get_context_data(**kwargs)
         context.update({
-            'usuarios_list': CustomUser.objects.all
+            'usuarios_list': CustomUser.objects.all().filter(is_escribano = True)
             })
         return context
-
-    def get_queryset(self):
-        return Escribano.objects.all
 
 
 
@@ -120,14 +117,14 @@ class DetalleDocumentoView(LoginRequiredMixin, DetailView):
 
 class EditarDocumentoView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model= Documento
-    fields= ('titulo', 'descripcion', 'paginas', 'archivo')
+    form_class = DocumentoForm
     template_name = 'principal/editar_documento.html'
     slug_field = 'slug'
     login_url = '/cuentas/login/'
 
     def test_func(self):
         obj = self.get_object()
-        return obj.escribano == self.request.user or obj.cliente == self.request.user
+        return obj.escribano == self.request.user
 
 
 
