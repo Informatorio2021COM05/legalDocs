@@ -99,8 +99,7 @@ class CargarDocumentoView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         return super().form_valid(form)
 
     def test_func(self):
-        obj = self.get_object()
-        return obj.cliente == self.request.user
+        return self.request.user.is_escribano
 
 
 

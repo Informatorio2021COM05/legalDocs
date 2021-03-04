@@ -5,7 +5,6 @@ from .models import Documento, Turno
 
 
 class DocumentoForm(ModelForm):
-    cliente= forms.CharField()
     descripcion = forms.CharField(widget=forms.Textarea, max_length=300, required = False)
     
     class Meta:
@@ -23,6 +22,8 @@ class TurnoForm(ModelForm):
     class Meta:
         model = Turno
         fields = '__all__'
+
+
 
 class EditarTurnoForm(ModelForm):
     fecha = forms.DateField(widget=DateInput(format='%Y-%m-%d', attrs={'type': 'date'}))
