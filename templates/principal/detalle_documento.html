@@ -5,8 +5,9 @@
 {% block content %}
     <p> <strong>Propietario del documento:</strong> {{ documento.cliente }}</p>
     <p> <strong>Título:</strong> {{ documento.titulo }}</p>
-    {% if documento.descripcion != '' %}
-        <p> <strong>Descripción:</strong> {{ documento.descripcion }}</p>
+    {% if documento.descripción != '' %}
+        <p> <strong>Descripción:</strong></p>
+        <div class="descripcion">{{ documento.descripción }}</div><br>
     {% endif %}
 
     <p> <strong>Código de identificación:</strong> {{ documento.slug }}</p>
@@ -22,6 +23,7 @@
     <br>
     <br>
         <a class="boton" href="{% url 'principal:editar_documento' documento.slug %}">Añadir archivo y editar documento</a>
+        <br><br><br>
     {% endif %}
     
 {% endblock content %}

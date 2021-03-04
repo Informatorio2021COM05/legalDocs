@@ -5,11 +5,11 @@ from .models import Documento, Turno
 
 
 class DocumentoForm(ModelForm):
-    descripcion = forms.CharField(widget=forms.Textarea, max_length=300, required = False)
+    descripción = forms.CharField(widget=forms.Textarea, max_length=300, required = False)
     
     class Meta:
         model = Documento
-        fields = ('cliente', 'titulo', 'descripcion', 'paginas')
+        fields = ('cliente', 'titulo', 'descripción', 'paginas')
 
 
 

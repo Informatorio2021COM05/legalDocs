@@ -18,7 +18,7 @@ class Turno(models.Model):
 
 class Documento(models.Model):
     titulo = models.CharField(max_length=50, verbose_name= 'Título')
-    descripcion = models.CharField(max_length=300, default='', blank=True, verbose_name= 'Descripción')
+    descripción = models.CharField(max_length=300, default='', blank=True, verbose_name= 'Descripción')
     paginas = models.PositiveIntegerField(verbose_name= 'Cantidad de páginas')
     archivo = models.FileField(upload_to="documentos/", blank=True, null=True, verbose_name= 'Archivo')
     slug = models.CharField(max_length=4, blank=True, editable=False, unique=True, verbose_name= 'Código de identificación')
