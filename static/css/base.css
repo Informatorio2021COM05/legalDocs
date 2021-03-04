@@ -145,14 +145,17 @@ form button,
 
 form button {
     margin: 1em;
-    width: 20em;
+    width: 12em;
     margin-bottom: 2em;
     font-size: 1.3em;
 }
 
 .boton {
+    display: block;
+    margin: auto;
     font-size: 1em;
     border-width: 0.1em;
+    width: 12em;
     border-style: outset;
     text-decoration: none;
 }
@@ -212,4 +215,13 @@ form button:hover,
 .lista ul li a:active,
 .lista ul li a:hover {
     background-color: rgba(0, 0, 0, 0.119);
+}
+
+.small {
+    font-size: 0.9em;
+}
+
+.lista ul li .link {
+    font-size: 1.1em;
+    color: blue;
 }
