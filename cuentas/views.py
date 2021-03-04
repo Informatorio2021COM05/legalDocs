@@ -1,7 +1,7 @@
 from django.urls.base import set_urlconf
 from .forms import CustomUserCreationForm, EscribanoCreationForm
 from .models import CustomUser
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.shortcuts import redirect
@@ -43,12 +43,15 @@ class EditarUsuarioView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     template_name = 'registration/editar_perfil.html'
     fields = ('username', 'nombre', 'apellido', 'dni')
     login_url = '/cuentas/login/'
-    # success_url = reverse_lazy('/cuentas/login/')
+    success_url = reverse_lazy('cuentas:perfil')
 
 
     def test_func(self):
         obj = self.get_object()
         return obj.id == self.request.user.id
+
+    def get_success_url(self):
+        return reverse('cuentas:perfil', kwargs={'pk': self.request.user.id})
 
     # No muestra el id
     # def get_object(self, queryset:None):
