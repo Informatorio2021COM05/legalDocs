@@ -15,15 +15,15 @@ class HomePageView(TemplateView):
 
 
 
-def buscador_escribano(request):
-    queryset = request.GET.get("buscar")
-    escribano = Escribano.objects.all()
-    if queryset:
-        escribano = Escribano.objects.filter(
-            Q(nombre__icontains = queryset) |
-            Q(apellido__icontains = queryset)
-        ).distinct()
-    return render(request, 'principal/buscador_escribano.html', {'escribano':escribano})
+# def buscador_escribano(request):
+#     queryset = request.GET.get("buscar")
+#     escribano = Escribano.objects.all()
+#     if queryset:
+#         escribano = Escribano.objects.filter(
+#             Q(nombre__icontains = queryset) |
+#             Q(apellido__icontains = queryset)
+#         ).distinct()
+#     return render(request, 'principal/buscador_escribano.html', {'escribano':escribano})
 
 
 
@@ -37,6 +37,17 @@ class BuscadorView(ListView):
         context.update({
             'usuarios_list': CustomUser.objects.all().filter(is_escribano = True)
             })
+        return context
+
+    # def get_queryset(self):
+    #     return Escribano.objects.all
+
+    def get_queryset(self):
+        queryset = self.request.GET.get("buscar","")
+        context = Escribano.objects.filter(
+            Q(ciudad__icontains = queryset) |
+            Q(provincia__icontains = queryset)
+        ).distinct()
         return context
 
 
