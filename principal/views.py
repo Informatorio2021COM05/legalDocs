@@ -8,7 +8,7 @@ from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-import datetime
+from datetime import datetime
 
 
 class HomePageView(TemplateView):
@@ -173,20 +173,20 @@ class ListaTurnos(LoginRequiredMixin, ListView):
     model = Turno
     template_name = 'principal/lista_turnos.html'
     context_object_name = 'turnos_list'
-    paginate_by = 10
     login_url = '/cuentas/login/'
-    ordering = ['fecha']
 
     def get_queryset(self):
         if self.request.user.is_escribano:
-            return super(ListaTurnos, self).get_queryset().filter(escribano=self.request.user).order_by('-fecha', 'hora')
+            return super(ListaTurnos, self).get_queryset().filter(escribano=self.request.user).order_by('fecha', 'hora', '-creacion')
         else:
-            return super(ListaTurnos, self).get_queryset().filter(cliente=self.request.user).order_by('-fecha', 'hora')
+            return super(ListaTurnos, self).get_queryset().filter(cliente=self.request.user).order_by('fecha', 'hora', '-creacion')
 
     def get_context_data(self, **kwargs):
         context = super(ListaTurnos, self).get_context_data(**kwargs)
+        now = datetime.date(datetime.now())
         context.update({
             'usuario': self.request.user,
+            'now': now,
             })
         return context
 

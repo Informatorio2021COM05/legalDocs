@@ -8,6 +8,7 @@ from django.urls import reverse
 class Turno(models.Model):
     fecha = models.DateField('fecha', null=True, blank=True)
     hora = models.TimeField('hora', null=True, blank=True)
+    creacion = models.DateTimeField(auto_now_add=True, null=True, verbose_name= 'Fecha de creación')
     escribano = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='+')
     cliente = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     

@@ -6,27 +6,69 @@
     <h1>Mis turnos</h1>
     <div class="lista">
         <ul>
+            <h2>Próximos</h2>
             {% for turno in turnos_list %}
-                <li>
-                {% if usuario.is_escribano %}
-                    <p><strong>Nombre del cliente:</strong><br>{{ turno.cliente }}</p>
-                {% else %}
-                    <p><strong>Nombre del escribano: </strong></p>
-                    <a href=" {% url 'principal:detalle_escribano' turno.escribano_id %} " >{{ turno.escribano }}</a>
-                    <br><br><br>
+                {% if turno.fecha != None and turno.hora != None and turno.fecha > now %}
+                    <li>
+                        {% if usuario.is_escribano %}
+                            <p><strong>Nombre del cliente:</strong><br>{{ turno.cliente }}</p>
+                        {% else %}
+                            <p><strong>Nombre del escribano: </strong></p>
+                            <a href=" {% url 'principal:detalle_escribano' turno.escribano_id %} " >{{ turno.escribano }}</a>
+                            <br><br><br>
+                        {% endif %}
+                <p>Código: {{ turno.id }}</p><br>
+                <p><strong>Fecha:</strong> {{ turno.fecha }}<br>
+                <strong>Hora:</strong> {{ turno.hora }}</p> </li>
+                <br><br>
                 {% endif %}
-                {% if turno.fecha != None or turno.hora != None %}
-                    <p><strong>Fecha:</strong> {{ turno.fecha }}<br>
-                    <strong>Hora:</strong> {{ turno.hora }}</p> </li>
-                    <br><br>
-                {% else %}
+            {% endfor %}
+
+            <br><br><br><br>
+            <h2>Sin confirmar</h2>
+            {% for turno in turnos_list %}
+                {% if turno.fecha == None and turno.hora == None %}
+                    <li>
                     {% if usuario.is_escribano %}
-                        <a href="{% url 'principal:editar_turno' turno.pk %}" class="link">Añadir fecha y horario</a></li>
+                        <p><strong>Nombre del cliente:</strong><br>{{ turno.cliente }}</p>
+                    {% else %}
+                        <p><strong>Nombre del escribano: </strong></p>
+                        <a href=" {% url 'principal:detalle_escribano' turno.escribano_id %} " >{{ turno.escribano }}</a>
+                        <br><br><br>
+                    {% endif %}
+                    <p>Código: {{ turno.id }}</p><br>
+                    {% if turno.fecha != None or turno.hora != None %}
+                        <p><strong>Fecha:</strong> {{ turno.fecha }}<br>
+                        <strong>Hora:</strong> {{ turno.hora }}</p> </li>
                         <br><br>
                     {% else %}
-                        <p>Aún no se ha confirmado el horario del turno</p></li>
-                        <br><br>
+                        {% if usuario.is_escribano %}
+                            <a href="{% url 'principal:editar_turno' turno.pk %}" class="link">Añadir fecha y horario</a></li>
+                            <br><br>
+                        {% else %}
+                            <p>Aún no se ha confirmado el horario del turno</p></li>
+                            <br><br>
+                        {% endif %}
                     {% endif %}
+                {% endif %}
+            {% endfor %}
+
+            <br><br><br><br>
+            <h2>Pasados</h2>
+            {% for turno in turnos_list %}
+                {% if turno.fecha != None and turno.hora != None and turno.fecha < now %}
+                    <li>
+                        {% if usuario.is_escribano %}
+                            <p><strong>Nombre del cliente:</strong><br>{{ turno.cliente }}</p>
+                        {% else %}
+                            <p><strong>Nombre del escribano: </strong></p>
+                            <a href=" {% url 'principal:detalle_escribano' turno.escribano_id %} " >{{ turno.escribano }}</a>
+                            <br><br><br>
+                        {% endif %}
+                <p>Código: {{ turno.id }}</p><br>
+                <p><strong>Fecha:</strong> {{ turno.fecha }}<br>
+                <strong>Hora:</strong> {{ turno.hora }}</p> </li>
+                <br><br>
                 {% endif %}
             {% endfor %}
         </ul>
