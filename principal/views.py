@@ -3,11 +3,12 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from cuentas.models import CustomUser, Escribano
 from .models import Documento, Turno
-from .forms import DocumentoForm, TurnoForm, EditarTurnoForm
+from .forms import DocumentoForm, TurnoForm, EditarTurnoForm, EditarDocumentoForm
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+import datetime
 
 
 class HomePageView(TemplateView):
@@ -128,7 +129,7 @@ class DetalleDocumentoView(LoginRequiredMixin, DetailView):
 
 class EditarDocumentoView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model= Documento
-    form_class = DocumentoForm
+    form_class = EditarDocumentoForm
     template_name = 'principal/editar_documento.html'
     slug_field = 'slug'
     login_url = '/cuentas/login/'

@@ -12,6 +12,14 @@ class DocumentoForm(ModelForm):
         fields = ('cliente', 'titulo', 'descripción', 'paginas')
 
 
+class EditarDocumentoForm(ModelForm):
+    descripción = forms.CharField(widget=forms.Textarea, max_length=300, required = False)
+    
+    class Meta:
+        model = Documento
+        fields = ('cliente', 'titulo', 'descripción', 'paginas', 'archivo')
+
+
 
 class TurnoForm(ModelForm):
     fecha = forms.DateField(widget=DateInput(format='%Y-%m-%d', attrs={'type': 'date'}), required=False)
