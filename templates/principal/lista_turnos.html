@@ -17,14 +17,15 @@
                             <a href=" {% url 'principal:detalle_escribano' turno.escribano_id %} " >{{ turno.escribano }}</a>
                             <br><br><br>
                         {% endif %}
-                <p>Código: {{ turno.id }}</p><br>
-                <p><strong>Fecha:</strong> {{ turno.fecha }}<br>
-                <strong>Hora:</strong> {{ turno.hora }}</p> </li>
-                <br><br>
+                    <p>Código: {{ turno.id }}</p>
+                    <p><strong>Fecha:</strong> {{ turno.fecha }}<br><br>
+                    <strong>Hora:</strong> {{ turno.hora }}</p>
+                    </li>
+                    <br><br>
                 {% endif %}
             {% endfor %}
 
-            <br><br><br><br>
+            <br><br>
             <h2>Sin confirmar</h2>
             {% for turno in turnos_list %}
                 {% if turno.fecha == None and turno.hora == None %}
@@ -36,24 +37,18 @@
                         <a href=" {% url 'principal:detalle_escribano' turno.escribano_id %} " >{{ turno.escribano }}</a>
                         <br><br><br>
                     {% endif %}
-                    <p>Código: {{ turno.id }}</p><br>
-                    {% if turno.fecha != None or turno.hora != None %}
-                        <p><strong>Fecha:</strong> {{ turno.fecha }}<br>
-                        <strong>Hora:</strong> {{ turno.hora }}</p> </li>
+                    <p>Código: {{ turno.id }}</p>
+                    {% if usuario.is_escribano %}
+                        <a href="{% url 'principal:editar_turno' turno.pk %}" class="link">Añadir fecha y horario</a></li>
                         <br><br>
                     {% else %}
-                        {% if usuario.is_escribano %}
-                            <a href="{% url 'principal:editar_turno' turno.pk %}" class="link">Añadir fecha y horario</a></li>
-                            <br><br>
-                        {% else %}
-                            <p>Aún no se ha confirmado el horario del turno</p></li>
-                            <br><br>
-                        {% endif %}
+                        <p>Aún no se ha confirmado el horario del turno</p></li>
+                        <br><br>
                     {% endif %}
                 {% endif %}
             {% endfor %}
 
-            <br><br><br><br>
+            <br><br>
             <h2>Pasados</h2>
             {% for turno in turnos_list %}
                 {% if turno.fecha != None and turno.hora != None and turno.fecha < now %}
@@ -65,10 +60,11 @@
                             <a href=" {% url 'principal:detalle_escribano' turno.escribano_id %} " >{{ turno.escribano }}</a>
                             <br><br><br>
                         {% endif %}
-                <p>Código: {{ turno.id }}</p><br>
-                <p><strong>Fecha:</strong> {{ turno.fecha }}<br>
-                <strong>Hora:</strong> {{ turno.hora }}</p> </li>
-                <br><br>
+                    <p>Código: {{ turno.id }}</p>
+                    <p><strong>Fecha:</strong> {{ turno.fecha }}<br><br>
+                    <strong>Hora:</strong> {{ turno.hora }}</p>
+                    </li>
+                    <br><br>
                 {% endif %}
             {% endfor %}
         </ul>
