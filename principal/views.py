@@ -1,4 +1,3 @@
-from django.db.models.expressions import F
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from cuentas.models import CustomUser, Escribano
@@ -16,18 +15,6 @@ class HomePageView(TemplateView):
 
 
 
-# def buscador_escribano(request):
-#     queryset = request.GET.get("buscar")
-#     escribano = Escribano.objects.all()
-#     if queryset:
-#         escribano = Escribano.objects.filter(
-#             Q(nombre__icontains = queryset) |
-#             Q(apellido__icontains = queryset)
-#         ).distinct()
-#     return render(request, 'principal/buscador_escribano.html', {'escribano':escribano})
-
-
-
 class BuscadorView(ListView):
     model = Escribano
     template_name = 'principal/buscador_escribano.html'
@@ -39,9 +26,6 @@ class BuscadorView(ListView):
             'usuarios_list': CustomUser.objects.all().filter(is_escribano = True)
             })
         return context
-
-    # def get_queryset(self):
-    #     return Escribano.objects.all
 
     def get_queryset(self):
         queryset = self.request.GET.get("buscar","")
@@ -153,7 +137,6 @@ class ListaDocumentos(LoginRequiredMixin, ListView):
     template_name = 'principal/lista_documentos.html'
     context_object_name = 'documentos_list'
     login_url = '/cuentas/login/'
-    paginate_by = 10
 
     def get_queryset(self):
         if self.request.user.is_escribano:
@@ -167,6 +150,7 @@ class ListaDocumentos(LoginRequiredMixin, ListView):
             'usuario': self.request.user,
             })
         return context
+
 
 
 class ListaTurnos(LoginRequiredMixin, ListView):

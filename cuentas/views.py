@@ -1,10 +1,8 @@
-from django.urls.base import set_urlconf
 from .forms import CustomUserCreationForm, EscribanoCreationForm, EscribanoEditForm
 from .models import CustomUser, Escribano
 from django.urls import reverse_lazy, reverse
-from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic import TemplateView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
-from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 
@@ -52,10 +50,6 @@ class EditarUsuarioView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('cuentas:perfil', kwargs={'pk': self.request.user.id})
-
-    # No muestra el id
-    # def get_object(self, queryset:None):
-    #     return self.request.user
 
 
 
